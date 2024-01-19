@@ -25,11 +25,14 @@ If you are using python, you can start a web server by typing in your command pr
 It will start the server in port 8000.
 `http://127.0.0.1:8000/run.html`  (shows a blank window)
 
+## Quick API reference
 
 For a quick API reference visit:
 https://digitalworlds.github.io/op.n/file/zcgmnajhamef0imc@research.dwi.ufl.edu_op.n/?api
 
-For SVG, SVGEditor API reference visit:
+For SVGEditor API reference visit:
 https://digitalworlds.github.io/op.n/file/8gwdotsoaxrlz3p1@research.dwi.ufl.edu_op.n/?api
 
+SVG Reference at MDN:
+https://developer.mozilla.org/en-US/docs/Web/SVG
 
