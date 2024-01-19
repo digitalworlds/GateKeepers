@@ -6,7 +6,7 @@ https://digitalworlds.github.io/GateKeepers/
 
 ## How to run locally from your computer as you develop it
 Start a web server in the folder where index.html is located. There are many different ways to do this; below we provide a few popular ways. 
-You can pick the one that fits your framework:
+You can pick the one that better fits within your framework:
 
 1. Visual Studio Code:
 If you use Visual Studio Code for your development, install the extension Live Server by Ritwick Dey. 
