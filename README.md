@@ -1,6 +1,8 @@
 # The Gate Keepers
 An interactive web tool for designing simple circuits using logical gates
 
+The live site is available here:
+https://digitalworlds.github.io/GateKeepers/
 
 ## How to run locally from your computer as you develop it
 Start a web server in the folder where run.html is located. There are many different ways to do this; below we provide a few popular ways. 
@@ -23,8 +25,6 @@ If you are using python, you can start a web server by typing in your command pr
 It will start the server in port 8000.
 `http://127.0.0.1:8000/run.html`  (shows a blank window)
 
-The live site is available here:
-https://digitalworlds.github.io/GateKeepers/
 
 For a quick API reference visit:
 https://digitalworlds.github.io/op.n/file/zcgmnajhamef0imc@research.dwi.ufl.edu_op.n/?api
