@@ -29,5 +29,7 @@ https://digitalworlds.github.io/GateKeepers/
 For a quick API reference visit:
 https://digitalworlds.github.io/op.n/file/zcgmnajhamef0imc@research.dwi.ufl.edu_op.n/?api
 
+For SVG, SVGEditor API reference visit:
+https://digitalworlds.github.io/op.n/file/8gwdotsoaxrlz3p1@research.dwi.ufl.edu_op.n/?api
 
 
