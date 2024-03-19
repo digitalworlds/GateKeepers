@@ -1,0 +1,15 @@
+{
+	"folders": [
+		{
+			"name": "gates",
+			"path": "../../../Downloads/gates"
+		},
+		{
+			"name": "GateKeepers",
+			"path": "."
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "GateKeepers"
+	}
+}
