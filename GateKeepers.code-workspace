@@ -1,12 +1,12 @@
 {
 	"folders": [
 		{
-			"name": "gates",
-			"path": "../../../Downloads/gates"
-		},
-		{
 			"name": "GateKeepers",
 			"path": "."
+		},
+		{
+			"name": "gates",
+			"path": "../../../Downloads/gates"
 		}
 	],
 	"settings": {
