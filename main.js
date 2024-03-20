@@ -11,19 +11,37 @@ var main=function(args){
 
 	var menulayout=new MenuLayout();
 
-	
-	let helpMenu=menulayout.getMenuBar().append(new MenuItem('Help')).getSubMenu();
+    let runMenu=menulayout.getMenuBar().append(new MenuItem('Run'));
+    let instructionMenu=menulayout.getMenuBar().append(new MenuItem('Instructions'));
 
-	helpMenu.append(new MenuItem("Example")).whenClicked().then((item)=>{
+	/*instructionMenu.append(new MenuItem("Example")).whenClicked().then((item)=>{
 		item.collapseMenu();
 		console.log("You clicked!");
-	});
+	});*/
 
 	wind.getContent().append(menulayout);
 
 
-	var div=document.createElement("div");
-    menulayout.getContainer().div.appendChild(div);
+	//var div=document.createElement("div");
+    var vertSplitLayout=new SplitLayout({orientation:'vertical',sticky:'second',editable:false,splitPosition:'0.1'});
+
+    var gatesAndSignals=new ButtonGroup({orientation:'horizontal'});
+    var andGate=gatesAndSignals.append(new Button("AND Gate"));
+    var orGate=gatesAndSignals.append(new Button("OR Gate"));
+    var notGate=gatesAndSignals.append(new Button("NOT Gate"));
+    var xorGate=gatesAndSignals.append(new Button("XOR Gate"));
+    var nandGate=gatesAndSignals.append(new Button("NAND Gate"));
+    var norGate=gatesAndSignals.append(new Button("NOR Gate"));
+    var inputSignal=gatesAndSignals.append(new Button("Input Signal"));
+    var connectorSignal=gatesAndSignals.append(new Button("Connector Signal"));
+    var outputSignal=gatesAndSignals.append(new Button("Output Signal"));
+
+
+    vertSplitLayout.getFirstContainer().append(gatesAndSignals);
+
+    menulayout.getContainer().append(vertSplitLayout);
+    var splitLayout=new SplitLayout({orientation:'horizontal',sticky:'second',editable:true,splitPosition:'0.25'});
+    vertSplitLayout.getSecondContainer().append(splitLayout);
     
 
     // const svgns = "http://www.w3.org/2000/svg";
@@ -42,6 +60,7 @@ var main=function(args){
     //only need to change SVGEditor, but everything can be draggable
     //start with rect only
 
+    /* This is an example of the SVGEditor class
     var mySVG=new SVGEditor();
 	mySVG.setSize(3000,3000);
     mySVG.rect({y:1320,x:1500,width:200,height:200,stroke:'#000000',fill:"rgba(0,0,0,0)",strokeWidth:"3"},{canResize:true})
@@ -54,5 +73,6 @@ var main=function(args){
     
 	menulayout.getContainer().div.scrollTop=mySVG.getHeight()/2-wind.getHeight()/2;
 	menulayout.getContainer().div.scrollLeft=mySVG.getWidth()/2-wind.getWidth()/2;
+    */
 
 }

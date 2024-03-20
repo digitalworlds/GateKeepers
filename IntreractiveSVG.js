@@ -160,7 +160,7 @@ class NOTGate extends Gate {
     }
   }
   
-  lass XORGate extends Gate {
+  class XORGate extends Gate {
     calculateOutput() {
       if (this.firstInputSignal && this.secondInputSignal) {
         const outputValue = (this.firstInputSignal.value !== this.secondInputSignal.value);
@@ -168,7 +168,9 @@ class NOTGate extends Gate {
       }
     }
   }
-  
+ 
+
+
   // Example usage:
 const andGate = new ANDGate('andGate.svg');
 const inputSignal = new InputSignal('inputSignal.svg');
