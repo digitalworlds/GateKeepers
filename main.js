@@ -1,8 +1,9 @@
-preload("SVGEditor.js");
 preload(libs['GUI']).before(function(args){
 		args.app.showLoading();
 	});
-	
+
+preload("SVGEditor.js");
+preload("SVGIcons.js");
 
 var main=function(args){
 	args.app.clearContents();
@@ -23,16 +24,25 @@ var main=function(args){
     var gatesAndSignals=new ButtonGroup({orientation:'horizontal'});
     var andGate=gatesAndSignals.append(new Button(""));
     andGate.setToolTipText("AND Gate");
+    andGate.setIcon(new GUIIcon(SVGICONS_DICT["andGateIcon"]));
     var orGate=gatesAndSignals.append(new Button(""));
     orGate.setToolTipText("OR Gate");
+    orGate.setIcon(new GUIIcon(SVGICONS_DICT["orGateIcon"]));
     var notGate=gatesAndSignals.append(new Button(""));
     notGate.setToolTipText("NOT Gate");
+    notGate.setIcon(new GUIIcon(SVGICONS_DICT["notGateIcon"]));
     var xorGate=gatesAndSignals.append(new Button(""));
     xorGate.setToolTipText("XOR Gate");
+    xorGate.setIcon(new GUIIcon(SVGICONS_DICT["xorGateIcon"]));
     var nandGate=gatesAndSignals.append(new Button(""));
     nandGate.setToolTipText("NAND Gate");
+    nandGate.setIcon(new GUIIcon(SVGICONS_DICT["nandGateIcon"]));
     var norGate=gatesAndSignals.append(new Button(""));
     norGate.setToolTipText("NOR Gate");
+    norGate.setIcon(new GUIIcon(SVGICONS_DICT["norGateIcon"]));
+    var xnorGate=gatesAndSignals.append(new Button(""));
+    xnorGate.setToolTipText("XNOR Gate");
+    xnorGate.setIcon(new GUIIcon(SVGICONS_DICT["xnorGateIcon"]));
     var inputSignal=gatesAndSignals.append(new Button(""));
     inputSignal.setToolTipText("Input Signal");
     var connectorSignal=gatesAndSignals.append(new Button(""));
