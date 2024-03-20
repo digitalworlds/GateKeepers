@@ -23,18 +23,27 @@ var main=function(args){
 
 
 	//var div=document.createElement("div");
-    var vertSplitLayout=new SplitLayout({orientation:'vertical',sticky:'second',editable:false,splitPosition:'0.1'});
+    var vertSplitLayout=new SplitLayout({orientation:'vertical',sticky:'second',editable:false,splitPosition:'0.125'});
 
     var gatesAndSignals=new ButtonGroup({orientation:'horizontal'});
-    var andGate=gatesAndSignals.append(new Button("AND Gate"));
-    var orGate=gatesAndSignals.append(new Button("OR Gate"));
-    var notGate=gatesAndSignals.append(new Button("NOT Gate"));
-    var xorGate=gatesAndSignals.append(new Button("XOR Gate"));
-    var nandGate=gatesAndSignals.append(new Button("NAND Gate"));
-    var norGate=gatesAndSignals.append(new Button("NOR Gate"));
-    var inputSignal=gatesAndSignals.append(new Button("Input Signal"));
-    var connectorSignal=gatesAndSignals.append(new Button("Connector Signal"));
-    var outputSignal=gatesAndSignals.append(new Button("Output Signal"));
+    var andGate=gatesAndSignals.append(new Button(""));
+    andGate.setToolTipText("AND Gate");
+    var orGate=gatesAndSignals.append(new Button(""));
+    orGate.setToolTipText("OR Gate");
+    var notGate=gatesAndSignals.append(new Button(""));
+    notGate.setToolTipText("NOT Gate");
+    var xorGate=gatesAndSignals.append(new Button(""));
+    xorGate.setToolTipText("XOR Gate");
+    var nandGate=gatesAndSignals.append(new Button(""));
+    nandGate.setToolTipText("NAND Gate");
+    var norGate=gatesAndSignals.append(new Button(""));
+    norGate.setToolTipText("NOR Gate");
+    var inputSignal=gatesAndSignals.append(new Button(""));
+    inputSignal.setToolTipText("Input Signal");
+    var connectorSignal=gatesAndSignals.append(new Button(""));
+    connectorSignal.setToolTipText("Connector Signal");
+    var outputSignal=gatesAndSignals.append(new Button(""));
+    outputSignal.setToolTipText("Output Singal");
 
 
     vertSplitLayout.getFirstContainer().append(gatesAndSignals);
