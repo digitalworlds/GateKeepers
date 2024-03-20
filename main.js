@@ -14,11 +14,6 @@ var main=function(args){
     let runMenu=menulayout.getMenuBar().append(new MenuItem('Run'));
     let instructionMenu=menulayout.getMenuBar().append(new MenuItem('Instructions'));
 
-	/*instructionMenu.append(new MenuItem("Example")).whenClicked().then((item)=>{
-		item.collapseMenu();
-		console.log("You clicked!");
-	});*/
-
 	wind.getContent().append(menulayout);
 
 
@@ -43,7 +38,7 @@ var main=function(args){
     var connectorSignal=gatesAndSignals.append(new Button(""));
     connectorSignal.setToolTipText("Connector Signal");
     var outputSignal=gatesAndSignals.append(new Button(""));
-    outputSignal.setToolTipText("Output Singal");
+    outputSignal.setToolTipText("Output Signal");
 
 
     vertSplitLayout.getFirstContainer().append(gatesAndSignals);
