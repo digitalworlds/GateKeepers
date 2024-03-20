@@ -17,8 +17,6 @@ var main=function(args){
 
 	wind.getContent().append(menulayout);
 
-
-	//var div=document.createElement("div");
     var vertSplitLayout=new SplitLayout({orientation:'vertical',sticky:'second',editable:false,splitPosition:'0.125'});
 
     var gatesAndSignals=new ButtonGroup({orientation:'horizontal'});
