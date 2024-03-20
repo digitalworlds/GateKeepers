@@ -13,7 +13,7 @@ var main=function(args){
 	var menulayout=new MenuLayout();
 
     let runMenu=menulayout.getMenuBar().append(new MenuItem('Run'));
-    let instructionMenu=menulayout.getMenuBar().append(new MenuItem('Instructions'));
+    let instructionsMenu=menulayout.getMenuBar().append(new MenuItem('Instructions'));
 
 	wind.getContent().append(menulayout);
 
