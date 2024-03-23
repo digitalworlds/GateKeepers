@@ -54,7 +54,7 @@ var main=function(args){
     menulayout.getContainer().append(vertSplitLayout);
     var splitLayout=new SplitLayout({orientation:'horizontal',sticky:'second',editable:true,splitPosition:'0.25'});
     vertSplitLayout.getSecondContainer().append(splitLayout);
-    
+}
    
     // const svgns = "http://www.w3.org/2000/svg";
     // //link for assistance creating dynamic svg elements -> https://www.motiontricks.com/creating-dynamic-svg-elements-with-javascript/
