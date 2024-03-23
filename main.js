@@ -43,10 +43,14 @@ var main=function(args){
     xnorGate.setIcon(new GUIIcon(SVGICONS_DICT["xnorGateIcon"]));
     var inputSignal=gatesAndSignals.append(new Button(""));
     inputSignal.setToolTipText("Input Signal");
+    inputSignal.setIcon(new GUIIcon(SVGICONS_DICT["inputIcon"]));
     var connectorSignal=gatesAndSignals.append(new Button(""));
     connectorSignal.setToolTipText("Connector Signal");
+    connectorSignal.setIcon(new GUIIcon(SVGICONS_DICT["connectorIcon"]));
     var outputSignal=gatesAndSignals.append(new Button(""));
     outputSignal.setToolTipText("Output Signal");
+    //output Icon doesn't work, need to figure out how to flip svg icon
+    outputSignal.setIcon(new GUIIcon(SVGICONS_DICT["inputIcon"]));
 
 
     vertSplitLayout.getFirstContainer().append(gatesAndSignals);
