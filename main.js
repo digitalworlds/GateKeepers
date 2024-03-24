@@ -90,6 +90,3 @@ var main=function(args){
 	menulayout.getContainer().div.scrollTop=mySVG.getHeight()/2-wind.getHeight()/2;
 	menulayout.getContainer().div.scrollLeft=mySVG.getWidth()/2-wind.getWidth()/2;
     */
-
-
-}
