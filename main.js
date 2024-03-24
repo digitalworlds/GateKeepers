@@ -49,8 +49,7 @@ var main=function(args){
     connectorSignal.setIcon(new GUIIcon(SVGICONS_DICT["connectorIcon"]));
     var outputSignal=gatesAndSignals.append(new Button(""));
     outputSignal.setToolTipText("Output Signal");
-    //output Icon doesn't work, need to figure out how to flip svg icon
-    outputSignal.setIcon(new GUIIcon(SVGICONS_DICT["inputIcon"]));
+    outputSignal.setIcon(new GUIIcon(SVGICONS_DICT["outputIcon"]));
 
 
     vertSplitLayout.getFirstContainer().append(gatesAndSignals);
@@ -90,6 +89,3 @@ var main=function(args){
 	menulayout.getContainer().div.scrollTop=mySVG.getHeight()/2-wind.getHeight()/2;
 	menulayout.getContainer().div.scrollLeft=mySVG.getWidth()/2-wind.getWidth()/2;
     */
-
-
-	
