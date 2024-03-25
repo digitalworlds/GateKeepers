@@ -4,6 +4,7 @@ preload(libs['GUI']).before(function(args){
 
 preload("SVGEditor.js");
 preload("SVGIcons.js");
+preload("Interactive.js");
 
 var main=function(args){
 	args.app.clearContents();
@@ -64,17 +65,21 @@ var main=function(args){
     var mySVG=new SVGEditor();
 	mySVG.setSize(wind.getWidth*0.25, wind.getHeight());
 
+   // var holdingCell = [];
+
     //button on-click functionality
     andGate.whenClicked().then(
         (button) => {
-            // init and gate class
-            mySVG.image({y:50,x:50,width:50,height:50,href:"gates/noun-and-gate-5536388.svg",preserveAspectRatio:"none"});
+            //holdingCell.push(new ANDGate("gates/noun-and-gate-5536388.svg", false));
+            // var andgate = new ANDGate("gates/noun-and-gate-5536388.svg", false);
+            // console.log(andgate.getSVGContent());
+            mySVG.image({y:50,x:50,width:50,height:50,href:"gates/noun-and-gate-5536388.svg" ,preserveAspectRatio:"none"});
         }
     );
     orGate.whenClicked().then(
         (button) => {
-            // init gate class
-            mySVG.image({y:50,x:50,width:50,height:50,href:"gates/noun-or-gate-5536390.svg",preserveAspectRatio:"none"});
+            //var gate2 = new ORGate("gates/noun-or-gate-5536390.svg", false); // debug console: "Uncaught ReferenceError ReferenceError: ORGate is not defined" idk why its saying that
+            mySVG.image({y:50,x:50,width:50,height:50,href:"gates/noun-or-gate-5536390.svg" ,preserveAspectRatio:"none"});
         }
     );
     notGate.whenClicked().then(
