@@ -16,6 +16,10 @@ class InteractiveSVG {
     setSVGContent(svgContent) {
       this.svgElement.innerHTML = svgContent;
     }
+
+    getSVGContent() {
+      return this.svgElement.innerHTML;
+    }
   
     setPosition(x, y) {
       this.svgElement.style.transform = `translate(${x}px, ${y}px)`;
@@ -140,7 +144,7 @@ class Gate extends InteractiveSVG {
       this.NAND = isNAND;
     }
 
-  calculateOutput() {
+    calculateOutput() {
       if (this.firstInputSignal && this.secondInputSignal) {
         const outputValue = this.firstInputSignal.value && this.secondInputSignal.value;
         if(!NAND) {
@@ -149,7 +153,7 @@ class Gate extends InteractiveSVG {
           this.outputSignal.setValue(!outputValue);
         }
       }
-  }
+    }
   }
   
 class ORGate extends Gate {
