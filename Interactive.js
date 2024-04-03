@@ -229,3 +229,4 @@ andGate.setOutput(outputSignal);
 // Complete circuit run and report output.
 outputSignal.reportValue();  // Should log the value of the output signal.
 */
+
