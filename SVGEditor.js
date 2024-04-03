@@ -1226,7 +1226,7 @@ ShapeGroupEditor.prototype.createAnchors=function(options){
 			this.center.setAttribute("opacity",1);
 			this.rotator.setAttribute("opacity",1);
 		})
-	
+	this.createDeleteButton();
 	this.rerender=rerender_anchors;
 	rerender_anchors();
 }
@@ -1244,6 +1244,36 @@ ShapeGroupEditor.prototype.exportSVGElement=function(parent){
 	
 }
 
+ShapeGroupEditor.prototype.createDeleteButton = function() {
+    var deleteButtonGroup = document.createElementNS(this.svgns, "g");
+    var buttonSize = 20; // Size of the delete button
+    var button = newShape("rect", {
+        x: -this.width / 2 - buttonSize / 2,
+        y: -this.height / 2 - buttonSize / 2,
+        width: buttonSize,
+        height: buttonSize,
+        fill: "red"
+    });
+    var buttonText = newShape("text", {
+        x: -this.width / 2,
+        y: -this.height / 2,
+        fill: "white",
+        "font-size": "12px",
+        "text-anchor": "middle",
+        "dominant-baseline": "central"
+    });
+    buttonText.textContent = "X";
+    
+    deleteButtonGroup.appendChild(button);
+    deleteButtonGroup.appendChild(buttonText);
+    this.g.appendChild(deleteButtonGroup);
+    
+    // Handle the delete action
+    deleteButtonGroup.addEventListener("click", (event) => {
+        event.stopPropagation(); // Prevent triggering other event listeners
+        this.remove(); // Remove the shape
+    });
+};
 
 ShapeGroupEditor.prototype.group=function(options){
 	return this.append(new ShapeGroupEditor(options));
@@ -1264,6 +1294,7 @@ ShapeGroupEditor.prototype.ellipse=function(options,options2){
 ShapeGroupEditor.prototype.text=function(options,options2){
 	return this.append(new TextEditor(options,options2));
 };
+
 
 ShapeGroupEditor.prototype.line=function(options){
 	
