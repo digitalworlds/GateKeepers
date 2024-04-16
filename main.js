@@ -83,61 +83,61 @@ andGate.whenClicked().then(
         //holdingCell.push(new ANDGate("gates/noun-and-gate-5536388.svg", false));
          var andgate = new ANDGate("gates/noun-and-gate-5536388.svg", false);
          console.log(andgate.getSVGContent());
-         mySVG.image({y:50,x:50,width:75,height:75,href:"gates/noun-and-gate-5536388.svg" ,preserveAspectRatio:"none"});
+         mySVG.image({y:50,x:50,width:100,height:100,href:"gates/noun-and-gate-5536388.svg" ,preserveAspectRatio:"none", object: ANDGate});
     }
 );
 orGate.whenClicked().then(
     (button) => {
         //var gate2 = new ORGate("gates/noun-or-gate-5536390.svg", false); // debug console: "Uncaught ReferenceError ReferenceError: ORGate is not defined" idk why its saying that
-        mySVG.image({y:50,x:50,width:50,height:50,href:"gates/noun-or-gate-5536390.svg" ,preserveAspectRatio:"none"});
+        mySVG.image({y:50,x:50,width:100,height:100,href:"gates/noun-or-gate-5536390.svg" ,preserveAspectRatio:"none"});
     }
 );
 notGate.whenClicked().then(
     (button) => {
         // init gate class
-        mySVG.image({y:50,x:50,width:50,height:50,href:"gates/noun-not-gate-5536385.svg",preserveAspectRatio:"none"});
+        mySVG.image({y:50,x:50,width:100,height:100,href:"gates/noun-not-gate-5536385.svg",preserveAspectRatio:"none"});
     }
 );
 xorGate.whenClicked().then(
     (button) => {
         // init gate class
-        mySVG.image({y:50,x:50,width:50,height:50,href:"gates/noun-xor-gate-5536387.svg",preserveAspectRatio:"none"});
+        mySVG.image({y:50,x:50,width:100,height:100,href:"gates/noun-xor-gate-5536387.svg",preserveAspectRatio:"none"});
     }
 );
 nandGate.whenClicked().then(
     (button) => {
         // init gate class
-        mySVG.image({y:50,x:50,width:50,height:50,href:"gates/noun-nand-gate-1375339.svg",preserveAspectRatio:"none"});
+        mySVG.image({y:50,x:50,width:100,height:100,href:"gates/noun-nand-gate-1375339.svg",preserveAspectRatio:"none"});
     }
 );
 norGate.whenClicked().then(
     (button) => {
         // init gate class
-        mySVG.image({y:50,x:50,width:50,height:50,href:"gates/noun-nor-77568.svg",preserveAspectRatio:"none"});
+        mySVG.image({y:50,x:50,width:100,height:100,href:"gates/noun-nor-77568.svg",preserveAspectRatio:"none"});
     }
 );
 xnorGate.whenClicked().then(
     (button) => {
         // init gate class
-        mySVG.image({y:50,x:50,width:50,height:50,href:"gates/noun-xnor-gate-3834994.svg",preserveAspectRatio:"none"});
+        mySVG.image({y:50,x:50,width:100,height:100,href:"gates/noun-xnor-gate-3834994.svg",preserveAspectRatio:"none"});
     }
 );
 inputSignal.whenClicked().then(
     (button) => {
         // init gate class
-        mySVG.image({y:50,x:50,width:50,height:50,href:"gates/line-with-dot.svg",preserveAspectRatio:"none"});
+        mySVG.image({y:50,x:50,width:75,height:75,href:"gates/line-with-dot.svg",preserveAspectRatio:"none"});
     }
 );
 connectorSignal.whenClicked().then(
     (button) => {
         // init gate class
-        mySVG.image({y:50,x:50,width:50,height:50,href:"gates/noun-line-924522.svg",preserveAspectRatio:"none"});
+        mySVG.image({y:50,x:50,width:75,height:75,href:"gates/noun-line-924522.svg",preserveAspectRatio:"none"});
     }
 );
 outputSignal.whenClicked().then(
     (button) => {
         // init gate class
-        mySVG.image({y:50,x:50,width:50,height:50,href:"gates/flipped-line-with-dot.svg",preserveAspectRatio:"none"});
+        mySVG.image({y:50,x:50,width:75,height:75,href:"gates/flipped-line-with-dot.svg",preserveAspectRatio:"none"});
     }
 );
 horizontalConnect.whenClicked().then(
@@ -170,7 +170,7 @@ mySVG.rect({y:1320,x:1500,width:200,height:200,stroke:'#000000',fill:"rgba(0,0,0
 mySVG.rect({y:1310,x:1310,width:20,height:20,stroke:'#000000',fill:"rgba(0,0,0,0)",strokeWidth:"3"})
 mySVG.ellipse({cy:1400,cx:1310,rx:209,ry:20,stroke:'#000000',fill:"rgba(0,0,0,0)",strokeWidth:"3"})
 mySVG.text({x:1350,y:1350,text:"Hello this is my test",'font-family':'Arial','font-size':'20px',fill:'black',style:'user-select:none;'})
-mySVG .image({y:1320,x:1500,width:200,height:200,href:"https://digitalworlds.github.io/op.n/img/logo.png",preserveAspectRatio:"none"});
+mySVG.image({y:1320,x:1500,width:200,height:200,href:"https://digitalworlds.github.io/op.n/img/logo.png",preserveAspectRatio:"none"});
 
 div.appendChild(mySVG.svg);
 
