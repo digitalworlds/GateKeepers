@@ -22,39 +22,50 @@ wind.getContent().append(menulayout);
 
 //var vertSplitLayout=new SplitLayout({orientation:'vertical',sticky:'second',editable:false,splitPosition:'0.125'});
 
-var gatesAndSignals=new ButtonGroup({orientation:'horizontal'});
-var andGate=gatesAndSignals.append(new Button(""));
+var Gates=new ButtonGroup({orientation:'horizontal'});
+var Signals = new ButtonGroup({orientation:'horizontal'});
+
+var andGate=Gates.append(new Button(""));
 andGate.setToolTipText("AND Gate");
 andGate.setIcon(new GUIIcon(SVGICONS_DICT["andGateIcon"]));
-var orGate=gatesAndSignals.append(new Button(""));
+var orGate=Gates.append(new Button(""));
 orGate.setToolTipText("OR Gate");
 orGate.setIcon(new GUIIcon(SVGICONS_DICT["orGateIcon"]));
-var notGate=gatesAndSignals.append(new Button(""));
+var notGate=Gates.append(new Button(""));
 notGate.setToolTipText("NOT Gate");
 notGate.setIcon(new GUIIcon(SVGICONS_DICT["notGateIcon"]));
-var xorGate=gatesAndSignals.append(new Button(""));
+var xorGate=Gates.append(new Button(""));
 xorGate.setToolTipText("XOR Gate");
 xorGate.setIcon(new GUIIcon(SVGICONS_DICT["xorGateIcon"]));
-var nandGate=gatesAndSignals.append(new Button(""));
+var nandGate=Gates.append(new Button(""));
 nandGate.setToolTipText("NAND Gate");
 nandGate.setIcon(new GUIIcon(SVGICONS_DICT["nandGateIcon"]));
-var norGate=gatesAndSignals.append(new Button(""));
+var norGate=Gates.append(new Button(""));
 norGate.setToolTipText("NOR Gate");
 norGate.setIcon(new GUIIcon(SVGICONS_DICT["norGateIcon"]));
-var xnorGate=gatesAndSignals.append(new Button(""));
+var xnorGate=Gates.append(new Button(""));
 xnorGate.setToolTipText("XNOR Gate");
 xnorGate.setIcon(new GUIIcon(SVGICONS_DICT["xnorGateIcon"]));
-var inputSignal=gatesAndSignals.append(new Button(""));
-inputSignal.setToolTipText("Input Signal");
-inputSignal.setIcon(new GUIIcon(SVGICONS_DICT["inputIcon"]));
-var connectorSignal=gatesAndSignals.append(new Button(""));
+
+var inputSignal0=Signals.append(new Button(""));
+inputSignal0.setToolTipText("Input Value 0");
+inputSignal0.setIcon(new GUIIcon(SVGICONS_DICT["input0Icon"]));
+var inputSignal1=Signals.append(new Button(""));
+inputSignal1.setToolTipText("Input Value 1");
+inputSignal1.setIcon(new GUIIcon(SVGICONS_DICT["input1Icon"]));
+var connectorSignal=Signals.append(new Button(""));
 connectorSignal.setToolTipText("Connector Signal");
 connectorSignal.setIcon(new GUIIcon(SVGICONS_DICT["connectorIcon"]));
-var outputSignal=gatesAndSignals.append(new Button(""));
+var outputSignal=Signals.append(new Button(""));
 outputSignal.setToolTipText("Output Signal");
 outputSignal.setIcon(new GUIIcon(SVGICONS_DICT["outputIcon"]));
+var horizontalConnect = Signals.append(new Button(""))
+horizontalConnect.setToolTipText("Connector Signal");
+horizontalConnect.setIcon(new GUIIcon(SVGICONS_DICT["horizontalConnectorIcon"]));
 
-wind.append(gatesAndSignals);
+wind.append(Gates);
+wind.append(Signals);
+
 
 //menulayout.getContainer().append(vertSplitLayout);
 //var splitLayout=new SplitLayout({orientation:'horizontal',sticky:'second',editable:true,splitPosition:'0.25'});
@@ -110,10 +121,16 @@ xnorGate.whenClicked().then(
         mySVG.image({y:50,x:50,width:50,height:50,object:xnorgate,href:"gates/noun-xnor-gate-3834994.svg",preserveAspectRatio:"none"});
     }
 );
-inputSignal.whenClicked().then(
+inputSignal0.whenClicked().then(
     (button) => {
-        var input = new InputSignal("gates/line-with-dot.svg");
-        mySVG.image({y:50,x:50,width:50,height:50,object:input,href:"gates/line-with-dot.svg",preserveAspectRatio:"none"});
+        var input0 = new InputSignal0("gates/input-0.svg");
+        mySVG.image({y:50,x:50,width:50,height:50,object:input0,href:"gates/input-0.svg",preserveAspectRatio:"none"});
+    }
+);
+inputSignal1.whenClicked().then(
+    (button) => {
+        var input1 = new InputSignal1("gates/input-1.svg");
+        mySVG.image({y:50,x:50,width:50,height:50,object:input1,href:"gates/input-1.svg",preserveAspectRatio:"none"});
     }
 );
 connectorSignal.whenClicked().then(
@@ -126,6 +143,12 @@ outputSignal.whenClicked().then(
     (button) => {
        var output = new OutputSignal("gates/flipped-line-with-dot.svg");
         mySVG.image({y:50,x:50,width:50,height:50,object:output,href:"gates/flipped-line-with-dot.svg",preserveAspectRatio:"none"});
+    }
+);
+horizontalConnect.whenClicked().then(
+    (button) => {
+        var horizontalconnector = new ConnectorSignal("gates/vertical-line-svgrepo-com.svg");
+        mySVG.image({y:50,x:50,width:75,height:75,object:horizontalconnector, href:"gates/vertical-line-svgrepo-com.svg",preserveAspectRatio:"none"});
     }
 );
 
