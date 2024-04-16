@@ -100,9 +100,10 @@ var ImageEditor=function(options,options2){
 	this.y=options.y;
 	this.width=options.width;
 	this.height=options.height;
-	if(options.angle)this.angle=options.angle;
-	else this.angle=0;
-	
+	// if(options.angle)this.angle=options.angle;
+	// else this.angle=0;
+	this.object=options.object
+
 	this.style=options;
 	delete this.style.x;
 	delete this.style.y;

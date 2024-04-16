@@ -66,69 +66,66 @@ menulayout.getContainer().div.appendChild(div);
 var mySVG=new SVGEditor();
 mySVG.setSize(wind.getWidth(), wind.getHeight());
 
-// var holdingCell = [];
-
 //button on-click functionality
 andGate.whenClicked().then(
     (button) => {
-        //holdingCell.push(new ANDGate("gates/noun-and-gate-5536388.svg", false));
          var andgate = new ANDGate("gates/noun-and-gate-5536388.svg", false);
-         console.log(andgate.getSVGContent());
-         mySVG.image({y:50,x:50,width:50,height:50,href:"gates/noun-and-gate-5536388.svg" ,preserveAspectRatio:"none"});
+         //console.log(andgate.getSVGContent());
+         mySVG.image({y:50,x:50,width:50,height:50,object:andgate,href:"gates/noun-and-gate-5536388.svg" ,preserveAspectRatio:"none"});
     }
 );
 orGate.whenClicked().then(
     (button) => {
-        //var gate2 = new ORGate("gates/noun-or-gate-5536390.svg", false); // debug console: "Uncaught ReferenceError ReferenceError: ORGate is not defined" idk why its saying that
-        mySVG.image({y:50,x:50,width:50,height:50,href:"gates/noun-or-gate-5536390.svg" ,preserveAspectRatio:"none"});
+        var orgate = new ORGate("gates/noun-or-gate-5536390.svg", false); // debug console: "Uncaught ReferenceError ReferenceError: ORGate is not defined" idk why its saying that
+        mySVG.image({y:50,x:50,width:50,height:50,object:orgate,href:"gates/noun-or-gate-5536390.svg" ,preserveAspectRatio:"none"});
     }
 );
 notGate.whenClicked().then(
     (button) => {
-        // init gate class
-        mySVG.image({y:50,x:50,width:50,height:50,href:"gates/noun-not-gate-5536385.svg",preserveAspectRatio:"none"});
+        var notgate = new NOTGate("gates/noun-not-gate-5536385.svg");
+        mySVG.image({y:50,x:50,width:50,height:50,object:notgate,href:"gates/noun-not-gate-5536385.svg",preserveAspectRatio:"none"});
     }
 );
 xorGate.whenClicked().then(
     (button) => {
-        // init gate class
-        mySVG.image({y:50,x:50,width:50,height:50,href:"gates/noun-xor-gate-5536387.svg",preserveAspectRatio:"none"});
+        var xorgate = new XORGate("gates/noun-xor-gate-5536387.svg", false);
+        mySVG.image({y:50,x:50,width:50,height:50,object:xorgate,href:"gates/noun-xor-gate-5536387.svg",preserveAspectRatio:"none"});
     }
 );
 nandGate.whenClicked().then(
     (button) => {
-        // init gate class
-        mySVG.image({y:50,x:50,width:50,height:50,href:"gates/noun-nand-gate-1375339.svg",preserveAspectRatio:"none"});
+        var nandgate = new ANDGate("gates/noun-nand-gate-1375339.svg", true);
+        mySVG.image({y:50,x:50,width:50,height:50,object:nandgate,href:"gates/noun-nand-gate-1375339.svg",preserveAspectRatio:"none"});
     }
 );
 norGate.whenClicked().then(
     (button) => {
-        // init gate class
-        mySVG.image({y:50,x:50,width:50,height:50,href:"gates/noun-nor-77568.svg",preserveAspectRatio:"none"});
+        var notgate = new ORGate("gates/noun-nor-77568.svg", true);
+        mySVG.image({y:50,x:50,width:50,height:50,object:notgate,href:"gates/noun-nor-77568.svg",preserveAspectRatio:"none"});
     }
 );
 xnorGate.whenClicked().then(
     (button) => {
-        // init gate class
-        mySVG.image({y:50,x:50,width:50,height:50,href:"gates/noun-xnor-gate-3834994.svg",preserveAspectRatio:"none"});
+        var xnorgate = new XORGate("gates/noun-xnor-gate-3834994.svg", true);
+        mySVG.image({y:50,x:50,width:50,height:50,object:xnorgate,href:"gates/noun-xnor-gate-3834994.svg",preserveAspectRatio:"none"});
     }
 );
 inputSignal.whenClicked().then(
     (button) => {
-        // init gate class
-        mySVG.image({y:50,x:50,width:50,height:50,href:"gates/line-with-dot.svg",preserveAspectRatio:"none"});
+        var input = new InputSignal("gates/line-with-dot.svg");
+        mySVG.image({y:50,x:50,width:50,height:50,object:input,href:"gates/line-with-dot.svg",preserveAspectRatio:"none"});
     }
 );
 connectorSignal.whenClicked().then(
     (button) => {
-        // init gate class
-        mySVG.image({y:50,x:50,width:50,height:50,href:"gates/noun-line-924522.svg",preserveAspectRatio:"none"});
+        var connector = new ConnectorSignal("gates/noun-line-924522.svg");
+        mySVG.image({y:50,x:50,width:50,height:50,object:connector,href:"gates/noun-line-924522.svg",preserveAspectRatio:"none"});
     }
 );
 outputSignal.whenClicked().then(
     (button) => {
-        // init gate class
-        mySVG.image({y:50,x:50,width:50,height:50,href:"gates/flipped-line-with-dot.svg",preserveAspectRatio:"none"});
+       var output = new OutputSignal("gates/flipped-line-with-dot.svg");
+        mySVG.image({y:50,x:50,width:50,height:50,object:output,href:"gates/flipped-line-with-dot.svg",preserveAspectRatio:"none"});
     }
 );
 
