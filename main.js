@@ -22,39 +22,48 @@ wind.getContent().append(menulayout);
 
 //var vertSplitLayout=new SplitLayout({orientation:'vertical',sticky:'second',editable:false,splitPosition:'0.125'});
 
-var gatesAndSignals=new ButtonGroup({orientation:'horizontal'});
-var andGate=gatesAndSignals.append(new Button(""));
+var Gates=new ButtonGroup({orientation:'horizontal'});
+var Signals = new ButtonGroup({orientation:'horizontal'});
+
+var andGate=Gates.append(new Button(""));
 andGate.setToolTipText("AND Gate");
 andGate.setIcon(new GUIIcon(SVGICONS_DICT["andGateIcon"]));
-var orGate=gatesAndSignals.append(new Button(""));
+var orGate=Gates.append(new Button(""));
 orGate.setToolTipText("OR Gate");
 orGate.setIcon(new GUIIcon(SVGICONS_DICT["orGateIcon"]));
-var notGate=gatesAndSignals.append(new Button(""));
+var notGate=Gates.append(new Button(""));
 notGate.setToolTipText("NOT Gate");
 notGate.setIcon(new GUIIcon(SVGICONS_DICT["notGateIcon"]));
-var xorGate=gatesAndSignals.append(new Button(""));
+var xorGate=Gates.append(new Button(""));
 xorGate.setToolTipText("XOR Gate");
 xorGate.setIcon(new GUIIcon(SVGICONS_DICT["xorGateIcon"]));
-var nandGate=gatesAndSignals.append(new Button(""));
+var nandGate=Gates.append(new Button(""));
 nandGate.setToolTipText("NAND Gate");
 nandGate.setIcon(new GUIIcon(SVGICONS_DICT["nandGateIcon"]));
-var norGate=gatesAndSignals.append(new Button(""));
+var norGate=Gates.append(new Button(""));
 norGate.setToolTipText("NOR Gate");
 norGate.setIcon(new GUIIcon(SVGICONS_DICT["norGateIcon"]));
-var xnorGate=gatesAndSignals.append(new Button(""));
+var xnorGate=Gates.append(new Button(""));
 xnorGate.setToolTipText("XNOR Gate");
 xnorGate.setIcon(new GUIIcon(SVGICONS_DICT["xnorGateIcon"]));
-var inputSignal=gatesAndSignals.append(new Button(""));
+
+var inputSignal=Signals.append(new Button(""));
 inputSignal.setToolTipText("Input Signal");
 inputSignal.setIcon(new GUIIcon(SVGICONS_DICT["inputIcon"]));
-var connectorSignal=gatesAndSignals.append(new Button(""));
+var connectorSignal=Signals.append(new Button(""));
 connectorSignal.setToolTipText("Connector Signal");
 connectorSignal.setIcon(new GUIIcon(SVGICONS_DICT["connectorIcon"]));
-var outputSignal=gatesAndSignals.append(new Button(""));
+var outputSignal=Signals.append(new Button(""));
 outputSignal.setToolTipText("Output Signal");
 outputSignal.setIcon(new GUIIcon(SVGICONS_DICT["outputIcon"]));
 
-wind.append(gatesAndSignals);
+var horizontalConnect = Signals.append(new Button(""))
+horizontalConnect.setToolTipText("Connector Signal");
+horizontalConnect.setIcon(new GUIIcon(SVGICONS_DICT["horizontalConnectorIcon"]));
+
+wind.append(Gates);
+wind.append(Signals);
+
 
 //menulayout.getContainer().append(vertSplitLayout);
 //var splitLayout=new SplitLayout({orientation:'horizontal',sticky:'second',editable:true,splitPosition:'0.25'});
@@ -129,6 +138,12 @@ outputSignal.whenClicked().then(
     (button) => {
         // init gate class
         mySVG.image({y:50,x:50,width:75,height:75,href:"gates/flipped-line-with-dot.svg",preserveAspectRatio:"none"});
+    }
+);
+horizontalConnect.whenClicked().then(
+    (button) => {
+        // init gate class
+        mySVG.image({y:50,x:50,width:75,height:75,href:"gates/vertical-line-svgrepo-com.svg",preserveAspectRatio:"none"});
     }
 );
 
