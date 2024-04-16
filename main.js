@@ -47,9 +47,12 @@ var xnorGate=Gates.append(new Button(""));
 xnorGate.setToolTipText("XNOR Gate");
 xnorGate.setIcon(new GUIIcon(SVGICONS_DICT["xnorGateIcon"]));
 
-var inputSignal=Signals.append(new Button(""));
-inputSignal.setToolTipText("Input Signal");
-inputSignal.setIcon(new GUIIcon(SVGICONS_DICT["inputIcon"]));
+var inputSignal0=Signals.append(new Button(""));
+inputSignal0.setToolTipText("Input Value 0");
+inputSignal0.setIcon(new GUIIcon(SVGICONS_DICT["input0Icon"]));
+var inputSignal1=Signals.append(new Button(""));
+inputSignal1.setToolTipText("Input Value 1");
+inputSignal1.setIcon(new GUIIcon(SVGICONS_DICT["input1Icon"]));
 var connectorSignal=Signals.append(new Button(""));
 connectorSignal.setToolTipText("Connector Signal");
 connectorSignal.setIcon(new GUIIcon(SVGICONS_DICT["connectorIcon"]));
@@ -122,10 +125,16 @@ xnorGate.whenClicked().then(
         mySVG.image({y:50,x:50,width:50,height:50,href:"gates/noun-xnor-gate-3834994.svg",preserveAspectRatio:"none"});
     }
 );
-inputSignal.whenClicked().then(
+inputSignal0.whenClicked().then(
     (button) => {
         // init gate class
-        mySVG.image({y:50,x:50,width:50,height:50,href:"gates/line-with-dot.svg",preserveAspectRatio:"none"});
+        mySVG.image({y:50,x:50,width:50,height:50,href:"gates/input-0.svg",preserveAspectRatio:"none"});
+    }
+);
+inputSignal1.whenClicked().then(
+    (button) => {
+        // init gate class
+        mySVG.image({y:50,x:50,width:50,height:50,href:"gates/input-1.svg",preserveAspectRatio:"none"});
     }
 );
 connectorSignal.whenClicked().then(
