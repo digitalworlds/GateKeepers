@@ -1,3 +1,4 @@
+preload("SVGEditor.js");
 class InteractiveSVG {
   constructor() {
     if (new.target === InteractiveSVG) {
@@ -145,6 +146,7 @@ class ANDGate extends Gate {
     this.NAND = isNAND;
   }
 
+
   calculateOutput() {
     if (this.firstInputSignal && this.secondInputSignal) {
       const outputValue = this.firstInputSignal.value && this.secondInputSignal.value;
@@ -207,8 +209,8 @@ class XORGate extends Gate {
   }
 }
 var main = function() {
- // opn.extend(InteractiveSVG,ANDGate);
-  exportData({InteractiveSVG});
+  opn.extend(Gate,ANDGate);
+  exportData({InteractiveSVG,ANDGate,XORGate,NOTGate,ORGate});
 }
 
 /*
