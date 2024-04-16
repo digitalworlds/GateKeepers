@@ -64,7 +64,7 @@ var div=document.createElement("div");
 menulayout.getContainer().div.appendChild(div);
 
 var mySVG=new SVGEditor();
-mySVG.setSize(wind.getWidth*0.25, wind.getHeight());
+mySVG.setSize(wind.getWidth(), wind.getHeight());
 
 // var holdingCell = [];
 
