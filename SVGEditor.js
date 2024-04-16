@@ -420,10 +420,6 @@ ShapeGroupEditor.prototype.createAnchors=function(options){
 			this.g.removeChild(this.upper_right);
 			this.g.removeChild(this.lower_left);
 			this.g.removeChild(this.lower_right);
-			this.g.removeChild(this.top);
-			this.g.removeChild(this.bottom);
-			this.g.removeChild(this.left);
-			this.g.removeChild(this.right);
 		}
 		if(this.canRotate){
 			this.g.removeChild(this.center);
