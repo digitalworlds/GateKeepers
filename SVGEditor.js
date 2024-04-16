@@ -370,6 +370,21 @@ ShapeGroupEditor.prototype.createAnchors=function(options){
 	this.rotator=newShape("ellipse",style);
 	style.style='transition: opacity .4s ease;pointer-events:none;';
 	this.center=newShape("ellipse",style);
+
+	this.upper_right.setAttribute("fill", "red"); // Set a distinct color to indicate deletion
+    this.upper_right.setAttribute("stroke", "black"); // Optional: Adjust styling as needed
+    this.upper_right.textContent = "X"; // Add text content if desired, though it might not display without additional text elements
+
+    // Adjust the size if necessary for the delete functionality
+    this.upper_right.setAttribute("width", 30); // Adjust the width for visibility
+    this.upper_right.setAttribute("height", 30); // Adjust the height for visibility
+
+    // Modify the event listener for the upper_right anchor to include delete functionality
+    this.upper_right.removeEventListener("mousedown", this.upper_right_mousedownHandler); // Assuming you've previously attached a mousedown handler
+    this.upper_right.addEventListener("click", (event) => {
+        event.stopPropagation(); // Prevent further propagation of the event
+		this.remove()
+    });
 	
 	this.startEditing=()=>{
 		if(this.editing)return;
@@ -1243,6 +1258,21 @@ ShapeGroupEditor.prototype.exportSVGElement=function(parent){
 	
 	
 }
+
+ShapeGroupEditor.prototype.remove = function() {
+    // Remove the graphical representation from the parent SVG element
+    if (this.g && this.g.parentNode) {
+        this.g.parentNode.removeChild(this.g);
+    }
+    // Remove this object from the parent's children array, if applicable
+    if (this.parent && this.parent.children) {
+        var index = this.parent.children.indexOf(this);
+        if (index > -1) {
+            this.parent.children.splice(index, 1);
+        }
+    }
+    // Additional cleanup can be performed here if necessary
+};
 
 
 ShapeGroupEditor.prototype.group=function(options){
