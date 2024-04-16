@@ -87,14 +87,25 @@ class ConnectorSignal extends Signal {
   }
 }
 
-class InputSignal extends Signal {
+class InputSignal0 extends Signal {
   constructor(svgURL) {
     super(svgURL);
+    this.value = 0;
   }
 
-  setUserValue(value) {
-    // Method for user to set the initial signal value
-    this.setValue(value);
+  getValue() {
+    return this.value;
+  }
+}
+
+class InputSignal1 extends Signal {
+  constructor(svgURL) {
+    super(svgURL);
+    this.value = 1;
+  }
+
+  getValue() {
+    return this.value;
   }
 }
 
