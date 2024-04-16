@@ -133,6 +133,8 @@ ImageEditor.prototype.renderShape=function(){
 	this.shape.setAttribute("height",Math.max(0,this.height));
 }
 
+
+
 var TextEditor=function(options,options2){
 	
 	
@@ -257,7 +259,7 @@ var ShapeGroupEditor=function(options,options2){
 	
 	this.canResize=true;if(options2&&typeof options2.canResize!='undefined')this.canResize=options2.canResize;
 	this.canMove=true;if(options2&&typeof options2.canMove!='undefined')this.canMove=options2.canMove;
-	this.canRotate=true;if(options2&&typeof options2.canRotate!='undefined')this.canRotate=options2.canRotate;
+	//this.canRotate=true;if(options2&&typeof options2.canRotate!='undefined')this.canRotate=options2.canRotate;
 	this.canSelect=true;if(options2&&typeof options2.canSelect!='undefined')this.canSelect=options2.canSelect;
 	
 	this.svgns="http://www.w3.org/2000/svg";
@@ -372,7 +374,7 @@ ShapeGroupEditor.prototype.createAnchors=function(options){
 	this.center=newShape("ellipse",style);
 
 	this.upper_right.setAttribute("fill", "red"); // Set a distinct color to indicate deletion
-    this.upper_right.setAttribute("stroke", "black"); // Optional: Adjust styling as needed
+    //this.upper_right.setAttribute("stroke", "black"); // Optional: Adjust styling as needed
     this.upper_right.textContent = "X"; // Add text content if desired, though it might not display without additional text elements
 
     // Adjust the size if necessary for the delete functionality
@@ -395,10 +397,10 @@ ShapeGroupEditor.prototype.createAnchors=function(options){
 			this.g.appendChild(this.upper_right);
 			this.g.appendChild(this.lower_left);
 			this.g.appendChild(this.lower_right);
-			this.g.appendChild(this.top);
-			this.g.appendChild(this.bottom);
-			this.g.appendChild(this.left);
-			this.g.appendChild(this.right);
+			//this.g.appendChild(this.top);
+			//this.g.appendChild(this.bottom);
+			//this.g.appendChild(this.left);
+			//this.g.appendChild(this.right);
 		}
 		if(this.canRotate){
 			this.g.appendChild(this.center);
@@ -670,14 +672,14 @@ ShapeGroupEditor.prototype.createAnchors=function(options){
 	
 	//Upper Right Movement Listeners
 	this.upper_right.addEventListener("mouseover",(event)=>{
-			this.upper_right.setAttribute("fill","yellow");
+			this.upper_right.setAttribute("fill","red");
 		})
 	this.upper_right.addEventListener("mouseout",(event)=>{
-			this.upper_right.setAttribute("fill","gray");
+			this.upper_right.setAttribute("fill","red");
 		})
 	this.upper_right.addEventListener("mousedown",(event)=>{
 			
-			this.upper_right.setAttribute("fill","yellow");
+			this.upper_right.setAttribute("fill","red");
 			
 			event.stopPropagation();
 			
@@ -696,7 +698,7 @@ ShapeGroupEditor.prototype.createAnchors=function(options){
 			this.upper_right_mouseup=(event2)=>{
 				
 				show_anchors();
-				this.upper_right.setAttribute("fill","gray");
+				this.upper_right.setAttribute("fill","red");
 				document.removeEventListener("mouseup",this.upper_right_mouseup);
 				this.upper_right_mouseup=null;
 				document.removeEventListener("mousemove",this.upper_right_mousemove);

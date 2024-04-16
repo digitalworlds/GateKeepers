@@ -72,9 +72,9 @@ mySVG.setSize(wind.getWidth*0.25, wind.getHeight());
 andGate.whenClicked().then(
     (button) => {
         //holdingCell.push(new ANDGate("gates/noun-and-gate-5536388.svg", false));
-        // var andgate = new ANDGate("gates/noun-and-gate-5536388.svg", false);
-        // console.log(andgate.getSVGContent());
-        mySVG.image({y:50,x:50,width:50,height:50,href:"gates/noun-and-gate-5536388.svg" ,preserveAspectRatio:"none"});
+         var andgate = new ANDGate("gates/noun-and-gate-5536388.svg", false);
+         console.log(andgate.getSVGContent());
+         mySVG.image({y:50,x:50,width:50,height:50,href:"gates/noun-and-gate-5536388.svg" ,preserveAspectRatio:"none"});
     }
 );
 orGate.whenClicked().then(
