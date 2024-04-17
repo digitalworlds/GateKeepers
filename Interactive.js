@@ -112,6 +112,13 @@ class InputSignal1 extends Signal {
 class OutputSignal extends Signal {
   constructor(svgURL) {
     super(svgURL);
+    this.leftList = new Set();
+  }
+
+  calculate() {
+    //call calculate output recursively - logic
+
+    return outputValue;
   }
 
   reportValue() {
@@ -127,6 +134,7 @@ class Gate extends InteractiveSVG {
     this.firstInputSignal = null;
     this.secondInputSignal = null;
     this.outputSignal = null;
+    this.leftList = new Set();
   }
 
 

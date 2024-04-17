@@ -14,8 +14,16 @@ var wind=args.app.getWindow();
 
 var menulayout=new MenuLayout();
 
+var outputSignal;
+
 var callback = (menu_item)=> {
-    //start out outputsignal and call calculate output recursively
+
+    if(outputSignal) {
+        //start out outputsignal and call calculate output recursively
+        var outputValue = outputSignal.calculate();
+    } else {
+        throw new Error("Missing output signal");
+    }
     console.log("you clicked run");
 
     //notif card
@@ -160,6 +168,11 @@ outputSignal.whenClicked().then(
     (button) => {
        var output = new OutputSignal("gates/flipped-line-with-dot.svg");
         mySVG.image({y:50,x:50,width:100,height:100,object:output,href:"gates/flipped-line-with-dot.svg",preserveAspectRatio:"none"});
+        if(this.outputSignal){
+            throw new Error("Output already assigned");
+        } else {
+            this.outputSignal = output;
+        }
     }
 );
 verticalConnect.whenClicked().then(
