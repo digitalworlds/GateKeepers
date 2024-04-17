@@ -100,10 +100,9 @@ var ImageEditor=function(options,options2){
 	this.y=options.y;
 	this.width=options.width;
 	this.height=options.height;
-	// if(options.angle)this.angle=options.angle;
-	// else this.angle=0;
-	this.object=options.object
-
+	if(options.angle)this.angle=options.angle;
+	else this.angle=0;
+	
 	this.style=options;
 	delete this.style.x;
 	delete this.style.y;
@@ -116,6 +115,8 @@ var ImageEditor=function(options,options2){
 	this.g.appendChild(this.shape);
 	
 	this.createAnchors({x:this.x,y:this.y,width:this.width,height:this.height,angle:this.angle});
+
+	this.addEventListeners();
 	
 }
 
@@ -134,6 +135,89 @@ ImageEditor.prototype.renderShape=function(){
 	this.shape.setAttribute("height",Math.max(0,this.height));
 }
 
+
+ImageEditor.prototype.addEventListeners = function() {
+    var editor = this;
+	
+    this.g.addEventListener('mousedown', function(event) {
+		console.log("Adding event listeners");
+		var startX = event.clientX;
+		var startY = event.clientY;
+		var origX = editor.x;
+		var origY = editor.y;
+	
+
+        function onMouseMove(moveEvent) {
+			console.log("Mouse move detected");
+			var deltaX = moveEvent.clientX - startX;
+			var deltaY = moveEvent.clientY - startY;
+			editor.setPosition(origX + deltaX, origY + deltaY);
+			//console.log("Moved to:", editor.x, editor.y);  // Debugging the move
+		
+			// Check for intersections with other editors after moving
+			console.log("checking for checkTouching");
+		
+			// New function to check for touching editors
+			editor.checkTouchingEditors();
+		}
+
+        function onMouseUp() {
+            document.removeEventListener('mousemove', onMouseMove);
+            document.removeEventListener('mouseup', onMouseUp);
+        }
+
+        document.addEventListener('mousemove', onMouseMove);
+        document.addEventListener('mouseup', onMouseUp);
+        event.preventDefault();
+    });
+};
+
+// Function to check for touching editors
+ImageEditor.prototype.checkTouchingEditors = function() {
+	
+    this.root.children.forEach(otherEditor => {
+        if (otherEditor !== this && this.intersects(otherEditor)) {
+            if (this.x < otherEditor.x) {
+                console.log("Touching on the right:", otherEditor);
+            } else {
+                console.log("Touching on the left:", otherEditor);
+            }
+        }
+    });
+};
+
+ImageEditor.prototype.setPosition = function(newX, newY) {
+	console.log("Setting position to:", newX, newY);  // Confirm new positions are calculated correctly
+    this.x = newX;
+    this.y = newY;
+    this.renderShape(); // Make sure this function exists and doesn't cause errors
+};
+
+// Function to determine if two editors intersect
+ImageEditor.prototype.intersects = function(otherEditor) {
+    return !(this.x + this.width < otherEditor.x || 
+             this.x > otherEditor.x + otherEditor.width || 
+             this.y + this.height < otherEditor.y || 
+             this.y > otherEditor.y + otherEditor.height);
+};
+
+
+
+// In checkTouchingEditors function
+ImageEditor.prototype.checkTouchingEditors = function() {
+    console.log("Checking for touching editors...");  // Debugging the touch check
+    this.root.children.forEach(otherEditor => {
+        console.log("Checking against:", otherEditor);  // See what it's comparing against
+        if (otherEditor !== this && this.intersects(otherEditor)) {
+            console.log("Intersects with:", otherEditor);  // Check if intersects log is shown
+            if (this.x < otherEditor.x) {
+                console.log("Touching on the right:", otherEditor);
+            } else {
+                console.log("Touching on the left:", otherEditor);
+            }
+        }
+    });
+};
 
 
 var TextEditor=function(options,options2){
@@ -260,7 +344,7 @@ var ShapeGroupEditor=function(options,options2){
 	
 	this.canResize=true;if(options2&&typeof options2.canResize!='undefined')this.canResize=options2.canResize;
 	this.canMove=true;if(options2&&typeof options2.canMove!='undefined')this.canMove=options2.canMove;
-	//this.canRotate=true;if(options2&&typeof options2.canRotate!='undefined')this.canRotate=options2.canRotate;
+	this.canRotate=true;if(options2&&typeof options2.canRotate!='undefined')this.canRotate=options2.canRotate;
 	this.canSelect=true;if(options2&&typeof options2.canSelect!='undefined')this.canSelect=options2.canSelect;
 	
 	this.svgns="http://www.w3.org/2000/svg";
@@ -293,7 +377,7 @@ ShapeGroupEditor.prototype.initRoot=function(){
 				this.pick_p.callThen({object:{x:(event.clientX-rect.left)/this.scale-this.padding,y:(event.clientY-rect.top)/this.scale-this.padding}});
 				this.pick_p.abort();
 				
-				event.stopPropagation();
+				//event.stopPropagation();
 			}
 		});
 }
@@ -375,7 +459,7 @@ ShapeGroupEditor.prototype.createAnchors=function(options){
 	this.center=newShape("ellipse",style);
 
 	this.upper_right.setAttribute("fill", "red"); // Set a distinct color to indicate deletion
-    //this.upper_right.setAttribute("stroke", "black"); // Optional: Adjust styling as needed
+    this.upper_right.setAttribute("stroke", "black"); // Optional: Adjust styling as needed
     this.upper_right.textContent = "X"; // Add text content if desired, though it might not display without additional text elements
 
     // Adjust the size if necessary for the delete functionality
@@ -385,7 +469,7 @@ ShapeGroupEditor.prototype.createAnchors=function(options){
     // Modify the event listener for the upper_right anchor to include delete functionality
     this.upper_right.removeEventListener("mousedown", this.upper_right_mousedownHandler); // Assuming you've previously attached a mousedown handler
     this.upper_right.addEventListener("click", (event) => {
-        event.stopPropagation(); // Prevent further propagation of the event
+        //event.stopPropagation(); // Prevent further propagation of the event
 		this.remove()
     });
 	
@@ -398,10 +482,10 @@ ShapeGroupEditor.prototype.createAnchors=function(options){
 			this.g.appendChild(this.upper_right);
 			this.g.appendChild(this.lower_left);
 			this.g.appendChild(this.lower_right);
-			//this.g.appendChild(this.top);
-			//this.g.appendChild(this.bottom);
-			//this.g.appendChild(this.left);
-			//this.g.appendChild(this.right);
+			this.g.appendChild(this.top);
+			this.g.appendChild(this.bottom);
+			this.g.appendChild(this.left);
+			this.g.appendChild(this.right);
 		}
 		if(this.canRotate){
 			this.g.appendChild(this.center);
@@ -421,6 +505,10 @@ ShapeGroupEditor.prototype.createAnchors=function(options){
 			this.g.removeChild(this.upper_right);
 			this.g.removeChild(this.lower_left);
 			this.g.removeChild(this.lower_right);
+			this.g.removeChild(this.top);
+			this.g.removeChild(this.bottom);
+			this.g.removeChild(this.left);
+			this.g.removeChild(this.right);
 		}
 		if(this.canRotate){
 			this.g.removeChild(this.center);
@@ -554,7 +642,7 @@ ShapeGroupEditor.prototype.createAnchors=function(options){
 			
 			activateEditor();
 			
-			event.stopPropagation();
+			//event.stopPropagation();
 			
 			if(!this.canMove)return;
 			var original_cx=this.cx;
@@ -609,7 +697,7 @@ ShapeGroupEditor.prototype.createAnchors=function(options){
 	this.upper_left.addEventListener("mousedown",(event)=>{
 			this.upper_left.setAttribute("fill","yellow");
 			
-			event.stopPropagation();
+			//event.stopPropagation();
 			
 			var original_width=this.width;
 			var original_height=this.height;
@@ -669,16 +757,16 @@ ShapeGroupEditor.prototype.createAnchors=function(options){
 	
 	//Upper Right Movement Listeners
 	this.upper_right.addEventListener("mouseover",(event)=>{
-			this.upper_right.setAttribute("fill","red");
+			this.upper_right.setAttribute("fill","yellow");
 		})
 	this.upper_right.addEventListener("mouseout",(event)=>{
-			this.upper_right.setAttribute("fill","red");
+			this.upper_right.setAttribute("fill","gray");
 		})
 	this.upper_right.addEventListener("mousedown",(event)=>{
 			
-			this.upper_right.setAttribute("fill","red");
+			this.upper_right.setAttribute("fill","yellow");
 			
-			event.stopPropagation();
+			//event.stopPropagation();
 			
 			var original_width=this.width;
 			var original_height=this.height;
@@ -695,7 +783,7 @@ ShapeGroupEditor.prototype.createAnchors=function(options){
 			this.upper_right_mouseup=(event2)=>{
 				
 				show_anchors();
-				this.upper_right.setAttribute("fill","red");
+				this.upper_right.setAttribute("fill","gray");
 				document.removeEventListener("mouseup",this.upper_right_mouseup);
 				this.upper_right_mouseup=null;
 				document.removeEventListener("mousemove",this.upper_right_mousemove);
@@ -746,7 +834,7 @@ ShapeGroupEditor.prototype.createAnchors=function(options){
 			
 			this.lower_left.setAttribute("fill","yellow");
 			
-			event.stopPropagation();
+			//event.stopPropagation();
 			
 			var original_width=this.width;
 			var original_height=this.height;
@@ -814,7 +902,7 @@ ShapeGroupEditor.prototype.createAnchors=function(options){
 			
 			this.lower_right.setAttribute("fill","yellow");
 			
-			event.stopPropagation();
+			//event.stopPropagation();
 			
 			var original_width=this.width;
 			var original_height=this.height;
@@ -882,7 +970,7 @@ ShapeGroupEditor.prototype.createAnchors=function(options){
 			
 			this.top.setAttribute("fill","yellow");
 			
-			event.stopPropagation();
+			//event.stopPropagation();
 			
 			var original_width=this.width;
 			var original_height=this.height;
@@ -955,7 +1043,7 @@ ShapeGroupEditor.prototype.createAnchors=function(options){
 			
 			this.bottom.setAttribute("fill","yellow");
 			
-			event.stopPropagation();
+			//event.stopPropagation();
 			
 			
 			var original_width=this.width;
@@ -1029,7 +1117,7 @@ ShapeGroupEditor.prototype.createAnchors=function(options){
 			
 			this.left.setAttribute("fill","yellow");
 			
-			event.stopPropagation();
+			//event.stopPropagation();
 			
 			var original_width=this.width;
 			var original_height=this.height;
@@ -1101,7 +1189,7 @@ ShapeGroupEditor.prototype.createAnchors=function(options){
 	this.right.addEventListener("mousedown",(event)=>{
 			
 			this.right.setAttribute("fill","yellow");
-			event.stopPropagation();
+			//event.stopPropagation();
 			
 			var original_width=this.width;
 			var original_height=this.height;
@@ -1175,7 +1263,7 @@ ShapeGroupEditor.prototype.createAnchors=function(options){
 	this.rotator.addEventListener("mousedown",(event)=>{
 			
 			this.rotator.setAttribute("fill","yellow");
-			event.stopPropagation();
+			//event.stopPropagation();
 			
 			var original_angle=this.angle;
 			var x1=event.clientX;

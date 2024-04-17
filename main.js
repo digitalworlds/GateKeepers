@@ -83,6 +83,7 @@ andGate.whenClicked().then(
          var andgate = new ANDGate("gates/noun-and-gate-5536388.svg", false);
          //console.log(andgate.getSVGContent());
          mySVG.image({y:50,x:50,width:50,height:50,object:andgate,href:"gates/noun-and-gate-5536388.svg" ,preserveAspectRatio:"none"});
+         console.log("hello")
     }
 );
 orGate.whenClicked().then(
