@@ -17,6 +17,14 @@ var menulayout=new MenuLayout();
 var callback = (menu_item)=> {
     //start out outputsignal and call calculate output recursively
     console.log("you clicked run");
+
+    //notif card
+    var notificationArea=wind.getWindowContainer().getNotificationArea();
+    var notificationCard=new NotificationCard({title:"Notification Card"});
+    notificationArea.append(notificationCard);
+    var seconds = 10;
+    notificationCard.setDuration(seconds);
+    notificationCard.append(new Label ('This is the notification card where we will display the output.'));
 }
 
 let runMenu=menulayout.getMenuBar().append(new MenuItem('Run')).whenPressed().then(callback);
