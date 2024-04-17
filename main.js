@@ -75,9 +75,9 @@ connectorSignal.setIcon(new GUIIcon(SVGICONS_DICT["connectorIcon"]));
 var outputSignal=Signals.append(new Button(""));
 outputSignal.setToolTipText("Output Signal");
 outputSignal.setIcon(new GUIIcon(SVGICONS_DICT["outputIcon"]));
-var horizontalConnect = Signals.append(new Button(""))
-horizontalConnect.setToolTipText("Connector Signal");
-horizontalConnect.setIcon(new GUIIcon(SVGICONS_DICT["horizontalConnectorIcon"]));
+var verticalConnect = Signals.append(new Button(""))
+verticalConnect.setToolTipText("Connector Signal");
+verticalConnect.setIcon(new GUIIcon(SVGICONS_DICT["horizontalConnectorIcon"]));
 
 wind.append(Gates);
 wind.append(Signals);
@@ -162,7 +162,7 @@ outputSignal.whenClicked().then(
         mySVG.image({y:50,x:50,width:100,height:100,object:output,href:"gates/flipped-line-with-dot.svg",preserveAspectRatio:"none"});
     }
 );
-horizontalConnect.whenClicked().then(
+verticalConnect.whenClicked().then(
     (button) => {
         var horizontalconnector = new ConnectorSignal("gates/vertical-line-svgrepo-com.svg");
         mySVG.image({y:50,x:50,width:100,height:100,object:horizontalconnector, href:"gates/vertical-line-svgrepo-com.svg",preserveAspectRatio:"none"});
