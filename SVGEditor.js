@@ -118,6 +118,8 @@ var ImageEditor=function(options,options2){
 	this.createAnchors({x:this.x,y:this.y,width:this.width,height:this.height,angle:this.angle});
 
 	this.addEventListeners();
+
+	this.leftList= new Set();
 	
 }
 
@@ -180,8 +182,11 @@ ImageEditor.prototype.checkTouchingEditors = function() {
         if (otherEditor !== this && this.intersects(otherEditor)) {
             if (this.x < otherEditor.x) {
                 console.log("Touching on the right:", otherEditor);
+				otherEditor.leftList.add(this);
             } else {
                 console.log("Touching on the left:", otherEditor);
+				this.leftList.add(otherEditor);
+				//console.log("Current Set:" , this.leftList.values());
             }
         }
     });
@@ -213,8 +218,11 @@ ImageEditor.prototype.checkTouchingEditors = function() {
          //  console.log("Intersects with:", otherEditor);  // Check if intersects log is shown
             if (this.x < otherEditor.x) {
                 console.log("Touching on the right:", otherEditor);
+				otherEditor.leftList.add(this);
             } else {
                 console.log("Touching on the left:", otherEditor);
+				this.leftList.add(otherEditor);
+				//console.log("Current Set:" , this.leftList.values());
             }
         }
     });
