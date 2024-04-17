@@ -221,7 +221,7 @@ class XORGate extends Gate {
 }
 var main = function() {
   opn.extend(Gate,ANDGate);
-  exportData({InteractiveSVG,ANDGate,XORGate,NOTGate,ORGate});
+  exportData({InteractiveSVG,ANDGate,XORGate,NOTGate,ORGate,InputSignal1,InputSignal0, OutputSignal,ConnectorSignal});
 }
 
 /*
