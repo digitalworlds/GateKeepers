@@ -14,7 +14,12 @@ var wind=args.app.getWindow();
 
 var menulayout=new MenuLayout();
 
-let runMenu=menulayout.getMenuBar().append(new MenuItem('Run'));
+var callback = (menu_item)=> {
+    //start out outputsignal and call calculate output recursively
+    console.log("you clicked run");
+}
+
+let runMenu=menulayout.getMenuBar().append(new MenuItem('Run')).whenPressed().then(callback);
 let instructionsMenu=menulayout.getMenuBar().append(new MenuItem('Instructions')).getSubMenu();
 instructionsMenu.append(new MenuItem("CircuitCanvas: How to Build Your Own Collaborative Circuit.<br>To begin, hit insert to drag and drop elements into your circuit.<br>When you have finished building hit run to see it in action! "));
 
