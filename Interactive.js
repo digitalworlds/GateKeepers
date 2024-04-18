@@ -236,14 +236,18 @@ class XORGate extends Gate {
     this.XNOR = isXNOR;
   }
   calculateOutput() {
+    this.setInputs();
+
     if (this.firstInputSignal && this.secondInputSignal) {
-      const outputValue = (this.firstInputSignal.value !== this.secondInputSignal.value);
-      if(!XNOR) {
-        this.outputSignal.setValue(outputValue);
+      console.log(this.firstInputSignal.value, " ", this.secondInputSignal.value);
+      
+      if(this.XNOR == false) {
+        this.outputSignal = this.firstInputSignal.value != this.secondInputSignal.value;
       } else {
-        this.outputSignal.setValue(!outputValue);
+        this.outputSignal = !(this.firstInputSignal.value != this.secondInputSignal.value);
       }
     }
+    return this.outputSignal;
   }
 }
 var main = function() {
