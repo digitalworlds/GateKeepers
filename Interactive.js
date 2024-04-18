@@ -122,7 +122,7 @@ class OutputSignal extends Signal {
     for(const Gate of this.leftList){
       //console.log(typeof gate);
       val =  Gate.calculateOutput();
-      console.log(val);
+      console.log("val:",val);
     }
     
     if(val == true) {
@@ -222,11 +222,15 @@ constructor(svgContent) {
   this.setSVGContent(svgContent);
 }
   calculateOutput() {
+    this.setInputs();
+    console.log(this.firstInputSignal.value);
+
     if (this.firstInputSignal) {
-      const outputValue = !this.firstInputSignal.value;
-      this.outputSignal.setValue(outputValue);
+      this.outputSignal = !this.firstInputSignal.value;
     }
+    return this.outputSignal;
   }
+
 }
 
 class XORGate extends Gate {
