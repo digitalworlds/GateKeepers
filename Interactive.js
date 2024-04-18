@@ -118,8 +118,9 @@ class OutputSignal extends Signal {
   calculate() {
     //call calculate output recursively - logic
     var val = null;
-    this.leftList.forEach(function (gate) {
-      console.log(gate.calculateOutput());
+    this.leftList.forEach(function (Gate) {
+      
+      console.log(Gate.calculateOutput());
     });
 
     // for(const gate of this.leftList){
@@ -183,10 +184,13 @@ class ANDGate extends Gate {
     var firstInputSignal = null;
     var secondInputSignal = null;
     this.leftList.forEach(function (input) {
+      console.log(input);
       if(firstInputSignal == null) {
+        console.log("first input" , firstInputSignal);
         firstInputSignal = input;
       } else {
         secondInputSignal = input;
+        console.log("second input", secondInputSignal);
       }
     });
 
@@ -197,6 +201,12 @@ class ANDGate extends Gate {
         this.outputSignal = outputValue;
       } else {
         this.outputSignal = outputValue;
+        /*
+        if(outputValue == 1){
+          this.outputSignal = 0;
+        } else{
+          this.outputSignal = 1;
+        } */
       }
     }
     return this.outputSignal;

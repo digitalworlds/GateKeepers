@@ -141,7 +141,7 @@ ImageEditor.prototype.addEventListeners = function() {
     var editor = this;
 	
     this.g.addEventListener('mousedown', function(event) {
-		console.log("Adding event listeners");
+		//console.log("Adding event listeners");
 		var startX = event.clientX;
 		var startY = event.clientY;
 		var origX = editor.x;
@@ -149,14 +149,14 @@ ImageEditor.prototype.addEventListeners = function() {
 	
 
         function onMouseMove(moveEvent) {
-			console.log("Mouse move detected");
+			//console.log("Mouse move detected");
 			var deltaX = moveEvent.clientX - startX;
 			var deltaY = moveEvent.clientY - startY;
 			editor.setPosition(origX + deltaX, origY + deltaY);
 			//console.log("Moved to:", editor.x, editor.y);  // Debugging the move
 		
 			// Check for intersections with other editors after moving
-			console.log("checking for checkTouching");
+			//console.log("checking for checkTouching");
 		
 			// New function to check for touching editors
 			editor.checkTouchingEditors();
@@ -198,7 +198,7 @@ ImageEditor.prototype.addEventListeners = function() {
 // };
 
 ImageEditor.prototype.setPosition = function(newX, newY) {
-	console.log("Setting position to:", newX, newY);  // Confirm new positions are calculated correctly
+	//console.log("Setting position to:", newX, newY);  // Confirm new positions are calculated correctly
     this.x = newX;
     this.y = newY;
     this.renderShape(); // Make sure this function exists and doesn't cause errors
@@ -211,8 +211,6 @@ ImageEditor.prototype.intersects = function(otherEditor) {
              this.y + this.height < otherEditor.y || 
              this.y > otherEditor.y + otherEditor.height);
 };
-
-
 
 // In checkTouchingEditors function
 ImageEditor.prototype.checkTouchingEditors = function() {
@@ -239,6 +237,16 @@ ImageEditor.prototype.checkTouchingEditors = function() {
 				}
 				
 				//console.log("Current Set:" , this.leftList.values());
+            }
+        } else {
+            // Remove from leftList if not intersecting
+            if (otherEditor !== this) {
+                if (!(otherEditor.object instanceof InputSignal0 || otherEditor.object instanceof InputSignal1)) {
+                    otherEditor.object.leftList.delete(this.object);
+                }
+				if (!(this.object instanceof InputSignal0 || this.object instanceof InputSignal1)) {
+                    this.object.leftList.delete(otherEditor.object);
+                }
             }
         }
     });
