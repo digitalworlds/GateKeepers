@@ -118,16 +118,12 @@ class OutputSignal extends Signal {
   calculate() {
     //call calculate output recursively - logic
     var val = null;
-    this.leftList.forEach(function (Gate) {
-      
-      console.log(Gate.calculateOutput());
-    });
 
-    // for(const gate of this.leftList){
-    //   //console.log(typeof gate);
-    //   val =  gate.calculateOutput();
-    //   console.log(val);
-    // }
+    for(const Gate of this.leftList){
+      //console.log(typeof gate);
+      val =  Gate.calculateOutput();
+      console.log(val);
+    }
 
     return val;
   }
