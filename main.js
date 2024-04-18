@@ -18,12 +18,12 @@ var outputSignal;
 
 var callback = (menu_item)=> {
 
-    if(outputSignal) {
-        //start out outputsignal and call calculate output recursively
-        var outputValue = outputSignal.calculate();
-    } else {
-        throw new Error("Missing output signal");
-    }
+    // if(outputSignal) {
+    //     //start out outputsignal and call calculate output recursively
+    //     var outputValue = outputSignal.calculate();
+    // } else {
+    //     throw new Error("Missing output signal");
+    // }
     console.log("you clicked run");
 
     //notif card

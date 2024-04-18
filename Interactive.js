@@ -78,6 +78,7 @@ class Signal extends InteractiveSVG {
 class ConnectorSignal extends Signal {
   constructor(svgURL) {
     super(svgURL);
+    this.leftList = new Set();
   }
 
   connect(inputGate, outputGate) {
