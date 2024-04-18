@@ -216,10 +216,16 @@ ImageEditor.prototype.checkTouchingEditors = function() {
          //  console.log("Intersects with:", otherEditor);  // Check if intersects log is shown
             if (this.x < otherEditor.x) {
                 console.log("Touching on the right:", otherEditor);
-				otherEditor.object.leftList.add(this);
+				//if object is not type signal, then do this
+				if(typeof otherEditor.object != 'InputSignal0' && typeof otherEditor.object != 'InputSignal1') {
+					otherEditor.object.leftList.add(this);
+				}
             } else {
                 console.log("Touching on the left:", otherEditor);
-				this.object.leftList.add(otherEditor);
+				if(typeof otherEditor.object != 'InputSignal0' && typeof otherEditor.object != 'InputSignal1') {
+					this.object.leftList.add(otherEditor);
+				}
+				
 				//console.log("Current Set:" , this.leftList.values());
             }
         }
