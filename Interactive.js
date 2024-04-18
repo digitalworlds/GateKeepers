@@ -118,12 +118,15 @@ class OutputSignal extends Signal {
   calculate() {
     //call calculate output recursively - logic
     var val = null;
-    for(const gate of this.leftList.entries()){
-      console.log(typeof gate);
-      //return gate.calculateOutput();
-      val = 1;
-      console.log(val);
-    }
+    this.leftList.forEach(function (gate) {
+      console.log(gate.calculateOutput());
+    });
+
+    // for(const gate of this.leftList){
+    //   //console.log(typeof gate);
+    //   val =  gate.calculateOutput();
+    //   console.log(val);
+    // }
 
     return val;
   }
@@ -144,16 +147,18 @@ class Gate extends InteractiveSVG {
     this.leftList = new Set();
   }
 
+  setInput() {
+    this.leftList.forEach(function (input) {
+      if (this.firstInputSignal == null) {
+        this.firstInputSignal = input;
+      } else if (this.secondInputSignal == null) {
+        this.secondInputSignal = input;
+      } else {
+        throw new Error("Both inputs already connected");
+      }
+    });
 
-  setInput(inputSignal) {
-    if (!this.firstInputSignal) {
-      this.firstInputSignal = inputSignal;
-    } else if (!this.secondInputSignal) {
-      this.secondInputSignal = inputSignal;
-    } else {
-      throw new Error("Both inputs already connected");
-    }
-    inputSignal.addListener(() => this.calculateOutput());
+    
   }
 
   setOutput(outputSignal) {
@@ -174,15 +179,27 @@ class ANDGate extends Gate {
 
 
   calculateOutput() {
-    if (this.firstInputSignal && this.secondInputSignal) {
-      const outputValue = this.firstInputSignal.value && this.secondInputSignal.value;
-      if(!NAND) {
-        this.outputSignal.setValue(outputValue);
+    //this.setInput();
+    var firstInputSignal = null;
+    var secondInputSignal = null;
+    this.leftList.forEach(function (input) {
+      if(firstInputSignal == null) {
+        firstInputSignal = input;
       } else {
-        this.outputSignal.setValue(!outputValue);
+        secondInputSignal = input;
+      }
+    });
 
+    if (firstInputSignal && secondInputSignal) {
+      console.log(firstInputSignal.value, " ", secondInputSignal.value);
+      const outputValue = firstInputSignal.value && secondInputSignal.value;
+      if(this.NAND == false) {
+        this.outputSignal = outputValue;
+      } else {
+        this.outputSignal = outputValue;
       }
     }
+    return this.outputSignal;
   }
 }
 

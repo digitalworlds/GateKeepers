@@ -228,14 +228,14 @@ ImageEditor.prototype.checkTouchingEditors = function() {
 				if(otherEditor.object instanceof InputSignal0 || otherEditor.object instanceof InputSignal1) {
 					
 				} else {
-					otherEditor.object.leftList.add(this);
+					otherEditor.object.leftList.add(this.object);
 				}
             } else {
                 console.log("Touching on the left:", otherEditor);
 				if(this.object instanceof InputSignal0 || this.object instanceof InputSignal1) {
 					
 				} else {
-					this.object.leftList.add(otherEditor);
+					this.object.leftList.add(otherEditor.object);
 				}
 				
 				//console.log("Current Set:" , this.leftList.values());
