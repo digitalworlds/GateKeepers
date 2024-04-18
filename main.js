@@ -36,6 +36,7 @@ var callback = (menu_item)=> {
 }
 
 let runMenu=menulayout.getMenuBar().append(new MenuItem('Run')).whenPressed().then(callback);
+let clearMenu=menulayout.getMenuBar().append(new MenuItem('Clear'));
 let instructionsMenu=menulayout.getMenuBar().append(new MenuItem('Instructions')).getSubMenu();
 instructionsMenu.append(new MenuItem("CircuitCanvas: How to Build Your Own Collaborative Circuit.<br>To begin, hit insert to drag and drop elements into your circuit.<br>When you have finished building hit run to see it in action! "));
 
@@ -101,6 +102,12 @@ menulayout.getContainer().div.appendChild(div);
 var mySVG=new SVGEditor();
 mySVG.setSize(wind.getWidth(), wind.getHeight());
 
+
+clearMenu.whenClicked().then(
+    (button)=>{
+        mySVG.removeAll();
+    }
+);
 //button on-click functionality
 andGate.whenClicked().then(
     (button) => {
