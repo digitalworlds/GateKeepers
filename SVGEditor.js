@@ -174,21 +174,28 @@ ImageEditor.prototype.addEventListeners = function() {
 };
 
 // Function to check for touching editors
-ImageEditor.prototype.checkTouchingEditors = function() {
+// ImageEditor.prototype.checkTouchingEditors = function() {
 	
-    this.root.children.forEach(otherEditor => {
-        if (otherEditor !== this && this.intersects(otherEditor)) {
-            if (this.x < otherEditor.x) {
-                console.log("Touching on the right:", otherEditor);
-				otherEditor.object.leftList.add(this);
-            } else {
-                console.log("Touching on the left:", otherEditor);
-				this.object.leftList.add(otherEditor);
-				//console.log("Current Set:" , this.leftList.values());
-            }
-        }
-    });
-};
+//     this.root.children.forEach(otherEditor => {
+//         if (otherEditor !== this && this.intersects(otherEditor)) {
+//             if (this.x < otherEditor.x) {
+//                 console.log("Touching on the right:", otherEditor);
+// 				//if object is not type signal, then do this
+// 				//console.log(instanceof otherEditor.object);
+// 				if(otherEditor.object instanceof InputSignal0 && otherEditor.object instanceof InputSignal1) {
+// 					otherEditor.object.leftList.add(this);
+// 				}
+//             } else {
+//                 console.log("Touching on the left:", otherEditor);
+// 				if(this.object instanceof InputSignal0 && this.object instanceof InputSignal1) {
+// 					this.object.leftList.add(otherEditor);
+// 				}
+				
+// 				//console.log("Current Set:" , this.leftList.values());
+//             }
+//         }
+//     });
+// };
 
 ImageEditor.prototype.setPosition = function(newX, newY) {
 	console.log("Setting position to:", newX, newY);  // Confirm new positions are calculated correctly
@@ -218,12 +225,16 @@ ImageEditor.prototype.checkTouchingEditors = function() {
                 console.log("Touching on the right:", otherEditor);
 				//if object is not type signal, then do this
 				//console.log(instanceof otherEditor.object);
-				if(otherEditor.object instanceof InputSignal0 && otherEditor.object instanceof InputSignal1) {
+				if(otherEditor.object instanceof InputSignal0 || otherEditor.object instanceof InputSignal1) {
+					
+				} else {
 					otherEditor.object.leftList.add(this);
 				}
             } else {
                 console.log("Touching on the left:", otherEditor);
-				if(this.object instanceof InputSignal0 && this.object instanceof InputSignal1) {
+				if(this.object instanceof InputSignal0 || this.object instanceof InputSignal1) {
+					
+				} else {
 					this.object.leftList.add(otherEditor);
 				}
 				

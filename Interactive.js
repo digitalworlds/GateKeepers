@@ -117,12 +117,15 @@ class OutputSignal extends Signal {
 
   calculate() {
     //call calculate output recursively - logic
+    var val = null;
     for(const gate of this.leftList.entries()){
-      console.log(gate);
+      console.log(typeof gate);
       //return gate.calculateOutput();
+      val = 1;
+      console.log(val);
     }
 
-    return outputValue;
+    return val;
   }
 
   reportValue() {

@@ -20,7 +20,7 @@ var callback = (menu_item)=> {
 
     if(output != null) {
         //start out outputsignal and call calculate output recursively
-        var outputValue = outputSignal.calculate();
+        var outputValue = output.calculate();
     } else {
         throw new Error("Missing output signal");
     }
