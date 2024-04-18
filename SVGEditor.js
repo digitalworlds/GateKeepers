@@ -223,7 +223,6 @@ ImageEditor.prototype.checkTouchingEditors = function() {
 				}
             } else {
                 console.log("Touching on the left:", otherEditor);
-				console.log(this.object instanceof InputSignal0);
 				if(this.object instanceof InputSignal0 && this.object instanceof InputSignal1) {
 					this.object.leftList.add(otherEditor);
 				}

@@ -14,16 +14,16 @@ var wind=args.app.getWindow();
 
 var menulayout=new MenuLayout();
 
-var outputSignal;
+var output=null;
 
 var callback = (menu_item)=> {
 
-    // if(outputSignal) {
-    //     //start out outputsignal and call calculate output recursively
-    //     var outputValue = outputSignal.calculate();
-    // } else {
-    //     throw new Error("Missing output signal");
-    // }
+    if(output != null) {
+        //start out outputsignal and call calculate output recursively
+        var outputValue = outputSignal.calculate();
+    } else {
+        throw new Error("Missing output signal");
+    }
     console.log("you clicked run");
 
     //notif card
@@ -173,12 +173,13 @@ connectorSignal.whenClicked().then(
 );
 outputSignal.whenClicked().then(
     (button) => {
-       var output = new OutputSignal("gates/flipped-line-with-dot.svg");
-        mySVG.image({y:50,x:50,width:100,height:100,object:output,href:"gates/flipped-line-with-dot.svg",preserveAspectRatio:"none"});
-        if(this.outputSignal){
-            throw new Error("Output already assigned");
+       var outputs = new OutputSignal("gates/flipped-line-with-dot.svg");
+        mySVG.image({y:50,x:50,width:100,height:100,object:outputs,href:"gates/flipped-line-with-dot.svg",preserveAspectRatio:"none"});
+        console.log(output);
+        if(output != null){
+            throw new Error("Output already assigned")
         } else {
-            this.outputSignal = output;
+            output = outputs;
         }
     }
 );
