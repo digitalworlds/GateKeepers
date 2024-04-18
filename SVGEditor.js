@@ -1,5 +1,5 @@
+preload("Interactive.js");
 preload("SVG.js");
-
 
 //This is an auxiliary function to make SVG elements
 var newShape=function(shapeType,options){
@@ -217,12 +217,14 @@ ImageEditor.prototype.checkTouchingEditors = function() {
             if (this.x < otherEditor.x) {
                 console.log("Touching on the right:", otherEditor);
 				//if object is not type signal, then do this
-				if(typeof otherEditor.object != 'InputSignal0' && typeof otherEditor.object != 'InputSignal1') {
+				//console.log(instanceof otherEditor.object);
+				if(otherEditor.object instanceof InputSignal0 && otherEditor.object instanceof InputSignal1) {
 					otherEditor.object.leftList.add(this);
 				}
             } else {
                 console.log("Touching on the left:", otherEditor);
-				if(typeof otherEditor.object != 'InputSignal0' && typeof otherEditor.object != 'InputSignal1') {
+				console.log(this.object instanceof InputSignal0);
+				if(this.object instanceof InputSignal0 && this.object instanceof InputSignal1) {
 					this.object.leftList.add(otherEditor);
 				}
 				

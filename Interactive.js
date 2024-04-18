@@ -1,4 +1,3 @@
-preload("SVGEditor.js");
 class InteractiveSVG {
   constructor() {
     if (new.target === InteractiveSVG) {
