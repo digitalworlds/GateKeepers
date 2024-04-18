@@ -223,18 +223,14 @@ ImageEditor.prototype.checkTouchingEditors = function() {
                 console.log("Touching on the right:", otherEditor);
 				//if object is not type signal, then do this
 				//console.log(instanceof otherEditor.object);
-				if(otherEditor.object instanceof InputSignal0 || otherEditor.object instanceof InputSignal1) {
-					
-				} else {
+				if(!(otherEditor.object instanceof InputSignal0 || otherEditor.object instanceof InputSignal1)) {
 					otherEditor.object.leftList.add(this.object);
 				}
             } else {
                 console.log("Touching on the left:", otherEditor);
-				if(this.object instanceof InputSignal0 || this.object instanceof InputSignal1) {
-					
-				} else {
+				if(!(this.object instanceof InputSignal0 || this.object instanceof InputSignal1)) {
 					this.object.leftList.add(otherEditor.object);
-				}
+				} 
 				
 				//console.log("Current Set:" , this.leftList.values());
             }
