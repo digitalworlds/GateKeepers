@@ -29,19 +29,18 @@ var callback = (menu_item)=> {
 
 let runMenu=menulayout.getMenuBar().append(new MenuItem('Run')).whenPressed().then(callback);
 let instructionsMenu=menulayout.getMenuBar().append(new MenuItem('Instructions')).getSubMenu();
-instructionsMenu.append(new MenuItem("CircuitCanvas: How to Build Your Own Collaborative Circuit.<br>To begin, hit insert to drag and drop elements into your circuit.<br>When you have finished building hit run to see it in action! "));
+instructionsMenu.append(new MenuItem("CircuitCanvas: How to Build Your Own Collaborative Circuit.<br>To begin, drag and drop elements into your circuit.<br>When you have finished building hit run to see it in action! "));
 var togetherJsButton=document.createElement("button");
 togetherJsButton.id='start-togetherjs';
 togetherJsButton.innerHTML="Start TogetherJS";
 togetherJsButton.addEventListener("click",TogetherJS,false);
-togetherJsButton.addEventListener("click",function(){
-    if(this.innerHTML=="Start TogetherJS") {
-        this.innerHTML="End TogetherJS";
-        togetherJsButton.className="togetherjs-started";
-    }
-    else {
-        this.innerHTML="Start TogetherJS";
-    }
+TogetherJS.on("ready", function () {
+    togetherJsButton.innerHTML="End TogetherJS";
+    togetherJsButton.className="togetherjs-started";
+});
+TogetherJS.on("close", function () {
+    togetherJsButton.innerHTML="Start TogetherJS";
+    togetherJsButton.className='';
 });
 
 var visibilityChangeFromRemote = false;
