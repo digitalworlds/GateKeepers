@@ -14,20 +14,31 @@ var wind=args.app.getWindow();
 
 var menulayout=new MenuLayout();
 
+var output=null;
+
 var callback = (menu_item)=> {
-    //start out outputsignal and call calculate output recursively
+    var outputValue = -1;
+    if(output != null) {
+        //start out outputsignal and call calculate output recursively
+        outputValue = output.calculate();
+        
+    } else {
+        throw new Error("Missing output signal");
+    }
     console.log("you clicked run");
 
     //notif card
     var notificationArea=wind.getWindowContainer().getNotificationArea();
-    var notificationCard=new NotificationCard({title:"Notification Card"});
+    var notificationCard=new NotificationCard({title:"Output:"});
     notificationArea.append(notificationCard);
     var seconds = 10;
     notificationCard.setDuration(seconds);
-    notificationCard.append(new Label ('This is the notification card where we will display the output.'));
+    console.log(outputValue);
+    notificationCard.append(new Label (outputValue));
 }
 
 let runMenu=menulayout.getMenuBar().append(new MenuItem('Run')).whenPressed().then(callback);
+let clearMenu=menulayout.getMenuBar().append(new MenuItem('Clear'));
 let instructionsMenu=menulayout.getMenuBar().append(new MenuItem('Instructions')).getSubMenu();
 instructionsMenu.append(new MenuItem("CircuitCanvas: How to Build Your Own Collaborative Circuit.<br>To begin, hit insert to drag and drop elements into your circuit.<br>When you have finished building hit run to see it in action! "));
 
@@ -93,6 +104,12 @@ menulayout.getContainer().div.appendChild(div);
 var mySVG=new SVGEditor();
 mySVG.setSize(wind.getWidth(), wind.getHeight());
 
+
+clearMenu.whenClicked().then(
+    (button)=>{
+        mySVG.removeAll();
+    }
+);
 //button on-click functionality
 andGate.whenClicked().then(
     (button) => {
@@ -158,8 +175,14 @@ connectorSignal.whenClicked().then(
 );
 outputSignal.whenClicked().then(
     (button) => {
-       var output = new OutputSignal("gates/flipped-line-with-dot.svg");
-        mySVG.image({y:50,x:50,width:100,height:100,object:output,href:"gates/flipped-line-with-dot.svg",preserveAspectRatio:"none"});
+       var outputs = new OutputSignal("gates/flipped-line-with-dot.svg");
+        mySVG.image({y:50,x:50,width:100,height:100,object:outputs,href:"gates/flipped-line-with-dot.svg",preserveAspectRatio:"none"});
+        console.log(output);
+        if(output != null){
+            throw new Error("Output already assigned")
+        } else {
+            output = outputs;
+        }
     }
 );
 verticalConnect.whenClicked().then(
