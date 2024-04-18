@@ -219,7 +219,14 @@ ImageEditor.prototype.checkTouchingEditors = function() {
        // console.log("Checking against:", otherEditor);  // See what it's comparing against
         if (otherEditor !== this && this.intersects(otherEditor)) {
          //  console.log("Intersects with:", otherEditor);  // Check if intersects log is shown
-            if (this.x < otherEditor.x) {
+			if (this.object.leftList.has(otherEditor.object)) {
+				this.object.leftList.delete(otherEditor.object);
+			} 
+			if (otherEditor.object.leftList.has(this.object)) {
+				otherEditor.object.leftList.delete(this.object);
+			}   
+			
+			if (this.x < otherEditor.x) {
                 console.log("Touching on the right:", otherEditor);
 				//if object is not type signal, then do this
 				//console.log(instanceof otherEditor.object);
@@ -234,7 +241,9 @@ ImageEditor.prototype.checkTouchingEditors = function() {
 				
 				//console.log("Current Set:" , this.leftList.values());
             }
-        } else {
+
+			
+		} else {
             // Remove from leftList if not intersecting
             if (otherEditor !== this) {
                 if (!(otherEditor.object instanceof InputSignal0 || otherEditor.object instanceof InputSignal1)) {
