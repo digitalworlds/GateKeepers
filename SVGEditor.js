@@ -219,10 +219,10 @@ ImageEditor.prototype.checkTouchingEditors = function() {
        // console.log("Checking against:", otherEditor);  // See what it's comparing against
         if (otherEditor !== this && this.intersects(otherEditor)) {
          //  console.log("Intersects with:", otherEditor);  // Check if intersects log is shown
-			if (this.object.leftList.has(otherEditor.object)) {
+			if (!(this.object instanceof InputSignal0 || this.object instanceof InputSignal1) && this.object.leftList.has(otherEditor.object)) {
 				this.object.leftList.delete(otherEditor.object);
 			} 
-			if (otherEditor.object.leftList.has(this.object)) {
+			if (!(otherEditor.object instanceof InputSignal0 || otherEditor.object instanceof InputSignal1) && otherEditor.object.leftList.has(this.object)) {
 				otherEditor.object.leftList.delete(this.object);
 			}   
 			

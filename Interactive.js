@@ -192,17 +192,10 @@ class ANDGate extends Gate {
 
     if (firstInputSignal && secondInputSignal) {
       console.log(firstInputSignal.value, " ", secondInputSignal.value);
-      const outputValue = firstInputSignal.value && secondInputSignal.value;
       if(this.NAND == false) {
-        this.outputSignal = outputValue;
+        this.outputSignal = firstInputSignal.value && secondInputSignal.value;
       } else {
-        this.outputSignal = outputValue;
-        /*
-        if(outputValue == 1){
-          this.outputSignal = 0;
-        } else{
-          this.outputSignal = 1;
-        } */
+        this.outputSignal = !(firstInputSignal.value && secondInputSignal.value);
       }
     }
     return this.outputSignal;
