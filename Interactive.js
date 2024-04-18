@@ -124,8 +124,12 @@ class OutputSignal extends Signal {
       val =  Gate.calculateOutput();
       console.log(val);
     }
-
-    return val;
+    
+    if(val == true) {
+      return "True";
+    } else {
+      return "False";
+    }
   }
 
   reportValue() {
@@ -138,28 +142,27 @@ class OutputSignal extends Signal {
 class Gate extends InteractiveSVG {
   constructor(svgURL) {
     super(svgURL);
-    this.firstInputSignal = null;
-    this.secondInputSignal = null;
+    this.firstInputSignal = -1;
+    this.secondInputSignal = -1;
     this.outputSignal = null;
     this.leftList = new Set();
   }
 
-  setInput() {
+  setInputs() {
+    var first = null;
+    var second = null;
     this.leftList.forEach(function (input) {
-      if (this.firstInputSignal == null) {
-        this.firstInputSignal = input;
-      } else if (this.secondInputSignal == null) {
-        this.secondInputSignal = input;
+      //console.log(input);
+      if(first == null) {
+        //console.log("first input" , firstInputSignal);
+        first = input
       } else {
-        throw new Error("Both inputs already connected");
+        second = input;
+        //console.log("second input", secondInputSignal);
       }
     });
-
-    
-  }
-
-  setOutput(outputSignal) {
-    this.outputSignal = outputSignal;
+    this.firstInputSignal=first;
+    this.secondInputSignal=second;
   }
 
   calculateOutput() {
@@ -176,26 +179,14 @@ class ANDGate extends Gate {
 
 
   calculateOutput() {
-    //this.setInput();
-    var firstInputSignal = null;
-    var secondInputSignal = null;
-    this.leftList.forEach(function (input) {
-      console.log(input);
-      if(firstInputSignal == null) {
-        console.log("first input" , firstInputSignal);
-        firstInputSignal = input;
-      } else {
-        secondInputSignal = input;
-        console.log("second input", secondInputSignal);
-      }
-    });
+    this.setInputs();
 
-    if (firstInputSignal && secondInputSignal) {
-      console.log(firstInputSignal.value, " ", secondInputSignal.value);
+    if (this.firstInputSignal && this.secondInputSignal) {
+      console.log(this.firstInputSignal.value, " ", this.secondInputSignal.value);
       if(this.NAND == false) {
-        this.outputSignal = firstInputSignal.value && secondInputSignal.value;
+        this.outputSignal = this.firstInputSignal.value && this.secondInputSignal.value;
       } else {
-        this.outputSignal = !(firstInputSignal.value && secondInputSignal.value);
+        this.outputSignal = !(this.firstInputSignal.value && this.secondInputSignal.value);
       }
     }
     return this.outputSignal;
@@ -203,20 +194,25 @@ class ANDGate extends Gate {
 }
 
 class ORGate extends Gate {
-constructor(svgContent, isNOR) {
-  super();
-  this.setSVGContent(svgContent);
-  this.NOR = isNOR;
-}
+  constructor(svgContent, isNOR) {
+    super();
+    this.setSVGContent(svgContent);
+    this.NOR = isNOR;
+  }
+  
   calculateOutput() {
+    this.setInputs();
+
     if (this.firstInputSignal && this.secondInputSignal) {
-      const outputValue = this.firstInputSignal.value || this.secondInputSignal.value;
-      if(!NOR) {
-        this.outputSignal.setValue(outputValue);
+      console.log(this.firstInputSignal.value, " ", this.secondInputSignal.value);
+      if(this.NOR == false) {
+        this.outputSignal = this.firstInputSignal.value || this.secondInputSignal.value;
       } else {
-        this.outputSignal.setValue(!outputValue);
+        this.outputSignal = !(this.firstInputSignal.value || this.secondInputSignal.value);
       }
     }
+
+    return this.outputSignal;
   }
 }
 
