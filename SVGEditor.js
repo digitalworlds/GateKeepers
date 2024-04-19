@@ -1,5 +1,5 @@
+preload("Interactive.js");
 preload("SVG.js");
-
 
 //This is an auxiliary function to make SVG elements
 var newShape=function(shapeType,options){
@@ -118,8 +118,6 @@ var ImageEditor=function(options,options2){
 	this.createAnchors({x:this.x,y:this.y,width:this.width,height:this.height,angle:this.angle});
 
 	this.addEventListeners();
-
-	this.leftList= new Set();
 	
 }
 
@@ -143,7 +141,7 @@ ImageEditor.prototype.addEventListeners = function() {
     var editor = this;
 	
     this.g.addEventListener('mousedown', function(event) {
-		console.log("Adding event listeners");
+		//console.log("Adding event listeners");
 		var startX = event.clientX;
 		var startY = event.clientY;
 		var origX = editor.x;
@@ -151,14 +149,14 @@ ImageEditor.prototype.addEventListeners = function() {
 	
 
         function onMouseMove(moveEvent) {
-			console.log("Mouse move detected");
+			//console.log("Mouse move detected");
 			var deltaX = moveEvent.clientX - startX;
 			var deltaY = moveEvent.clientY - startY;
 			editor.setPosition(origX + deltaX, origY + deltaY);
 			//console.log("Moved to:", editor.x, editor.y);  // Debugging the move
 		
 			// Check for intersections with other editors after moving
-			console.log("checking for checkTouching");
+			//console.log("checking for checkTouching");
 		
 			// New function to check for touching editors
 			editor.checkTouchingEditors();
@@ -176,24 +174,31 @@ ImageEditor.prototype.addEventListeners = function() {
 };
 
 // Function to check for touching editors
-ImageEditor.prototype.checkTouchingEditors = function() {
+// ImageEditor.prototype.checkTouchingEditors = function() {
 	
-    this.root.children.forEach(otherEditor => {
-        if (otherEditor !== this && this.intersects(otherEditor)) {
-            if (this.x < otherEditor.x) {
-                console.log("Touching on the right:", otherEditor);
-				otherEditor.leftList.add(this);
-            } else {
-                console.log("Touching on the left:", otherEditor);
-				this.leftList.add(otherEditor);
-				//console.log("Current Set:" , this.leftList.values());
-            }
-        }
-    });
-};
+//     this.root.children.forEach(otherEditor => {
+//         if (otherEditor !== this && this.intersects(otherEditor)) {
+//             if (this.x < otherEditor.x) {
+//                 console.log("Touching on the right:", otherEditor);
+// 				//if object is not type signal, then do this
+// 				//console.log(instanceof otherEditor.object);
+// 				if(otherEditor.object instanceof InputSignal0 && otherEditor.object instanceof InputSignal1) {
+// 					otherEditor.object.leftList.add(this);
+// 				}
+//             } else {
+//                 console.log("Touching on the left:", otherEditor);
+// 				if(this.object instanceof InputSignal0 && this.object instanceof InputSignal1) {
+// 					this.object.leftList.add(otherEditor);
+// 				}
+				
+// 				//console.log("Current Set:" , this.leftList.values());
+//             }
+//         }
+//     });
+// };
 
 ImageEditor.prototype.setPosition = function(newX, newY) {
-	console.log("Setting position to:", newX, newY);  // Confirm new positions are calculated correctly
+	//console.log("Setting position to:", newX, newY);  // Confirm new positions are calculated correctly
     this.x = newX;
     this.y = newY;
     this.renderShape(); // Make sure this function exists and doesn't cause errors
@@ -207,8 +212,6 @@ ImageEditor.prototype.intersects = function(otherEditor) {
              this.y > otherEditor.y + otherEditor.height);
 };
 
-
-
 // In checkTouchingEditors function
 ImageEditor.prototype.checkTouchingEditors = function() {
     console.log("Checking for touching editors...");  // Debugging the touch check
@@ -216,13 +219,39 @@ ImageEditor.prototype.checkTouchingEditors = function() {
        // console.log("Checking against:", otherEditor);  // See what it's comparing against
         if (otherEditor !== this && this.intersects(otherEditor)) {
          //  console.log("Intersects with:", otherEditor);  // Check if intersects log is shown
-            if (this.x < otherEditor.x) {
+			if (!(this.object instanceof InputSignal0 || this.object instanceof InputSignal1) && this.object.leftList.has(otherEditor.object)) {
+				this.object.leftList.delete(otherEditor.object);
+			} 
+			if (!(otherEditor.object instanceof InputSignal0 || otherEditor.object instanceof InputSignal1) && otherEditor.object.leftList.has(this.object)) {
+				otherEditor.object.leftList.delete(this.object);
+			}   
+			
+			if (this.x < otherEditor.x) {
                 console.log("Touching on the right:", otherEditor);
-				otherEditor.leftList.add(this);
+				//if object is not type signal, then do this
+				//console.log(instanceof otherEditor.object);
+				if(!(otherEditor.object instanceof InputSignal0 || otherEditor.object instanceof InputSignal1)) {
+					otherEditor.object.leftList.add(this.object);
+				}
             } else {
                 console.log("Touching on the left:", otherEditor);
-				this.leftList.add(otherEditor);
+				if(!(this.object instanceof InputSignal0 || this.object instanceof InputSignal1)) {
+					this.object.leftList.add(otherEditor.object);
+				} 
+				
 				//console.log("Current Set:" , this.leftList.values());
+            }
+
+			
+		} else {
+            // Remove from leftList if not intersecting
+            if (otherEditor !== this) {
+                if (!(otherEditor.object instanceof InputSignal0 || otherEditor.object instanceof InputSignal1)) {
+                    otherEditor.object.leftList.delete(this.object);
+                }
+				if (!(this.object instanceof InputSignal0 || this.object instanceof InputSignal1)) {
+                    this.object.leftList.delete(otherEditor.object);
+                }
             }
         }
     });
