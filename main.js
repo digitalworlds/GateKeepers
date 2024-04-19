@@ -158,6 +158,7 @@ mySVG.setSize(wind.getWidth(), wind.getHeight());
 clearMenu.whenClicked().then(
     (button)=>{
         mySVG.removeAll();
+        output = null; 
     }
 );
 //button on-click functionality
