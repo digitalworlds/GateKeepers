@@ -13,6 +13,13 @@
 
 	</style>
 
+	<script type="text/javascript">
+
+		window.TogetherJSConfig = {
+			hubBase: "https://togetherjs.dotnetfiddle.net"
+		};
+	</script>
+	<script src="https://togetherjs.com/togetherjs-min.js"></script>
 	<script type="text/javascript" src="https://digitalworlds.github.io/op.n/js/opn.js"></script>
 	<script type="text/javascript">
 
@@ -59,7 +66,7 @@
 				
 				var js=new URLSearchParams(window.location.search).get("app");
 				js="main.js";
-				var w=os.newWindow({title:"Gate Keepers",icon:"https://digitalworlds.github.io/op.n/img/logo.png"});
+				var w=os.newWindow({title:"CircuitCanvas",icon:"https://digitalworlds.github.io/op.n/img/logo.png"});
 				var app = new opn.App();
 				app.setWindow(w);
 				app.load(js);
@@ -69,6 +76,7 @@
 	</script>
 </head>
 
-<body onload="opn.hosturl='';opn.run(my_program)" style="margin:0px; background:ffffff;"></body>
+<body onload="opn.hosturl='';opn.run(my_program)" style="margin:0px; background:ffffff;">
+</body>
 
 </html>

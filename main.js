@@ -40,7 +40,57 @@ var callback = (menu_item)=> {
 let runMenu=menulayout.getMenuBar().append(new MenuItem('Run')).whenPressed().then(callback);
 let clearMenu=menulayout.getMenuBar().append(new MenuItem('Clear'));
 let instructionsMenu=menulayout.getMenuBar().append(new MenuItem('Instructions')).getSubMenu();
-instructionsMenu.append(new MenuItem("CircuitCanvas: How to Build Your Own Collaborative Circuit.<br>To begin, hit insert to drag and drop elements into your circuit.<br>When you have finished building hit run to see it in action! "));
+instructionsMenu.append(new MenuItem("CircuitCanvas: How to Build Your Own Collaborative Circuit.<br>To begin, drag and drop elements into your circuit.<br>When you have finished building hit run to see it in action! "));
+var togetherJsButton=document.createElement("button");
+togetherJsButton.id='start-togetherjs';
+togetherJsButton.innerHTML="Start TogetherJS";
+togetherJsButton.addEventListener("click",TogetherJS,false);
+TogetherJS.on("ready", function () {
+    togetherJsButton.innerHTML="End TogetherJS";
+    togetherJsButton.className="togetherjs-started";
+});
+TogetherJS.on("close", function () {
+    togetherJsButton.innerHTML="Start TogetherJS";
+    togetherJsButton.className='';
+});
+
+var visibilityChangeFromRemote = false;
+
+function fireTogetherJSVisibility(element, isVisible) {
+  if (visibilityChangeFromRemote) {
+    return;
+  }
+  var elementFinder = TogetherJS.require("elementFinder");
+  var location = elementFinder.elementLocation(element);
+  TogetherJS.send({type: "visibilityChange", isVisible: isVisible, element: location});
+}
+
+TogetherJS.hub.on("visibilityChange", function (msg) {
+  if (! msg.sameUrl) {
+    return;
+  }
+  var elementFinder = TogetherJS.require("elementFinder");
+  // If the element can't be found this will throw an exception:
+  var element = elementFinder.findElement(msg.element);
+  visibilityChangeFromRemote = true;
+  try {
+    app.changeVisibility(element, msg.isVisible);
+  } finally {
+    visibilityChangeFromRemote = false;
+  }
+});
+
+TogetherJS.hub.on("togetherjs.hello", function (msg) {
+    if (! msg.sameUrl) {
+      return;
+    }
+    MyApp.allToggleElements.forEach(function (el) {
+      var isVisible = $(el).is(":visible");
+      fireTogetherJSVisibility(el, isVisible);
+    });
+  });
+
+menulayout.getContainer().div.append(togetherJsButton);
 
 wind.getContent().append(menulayout);
 
