@@ -32,11 +32,12 @@ class ConnectorSignal extends Signal {
     this.leftList = new Set();
   }
 
-  // Connect input and output gates, and trigger output computation on signal change
-  connect(inputGate, outputGate) {
-    inputGate.setOutput(this);
-    outputGate.setInput(this);
-    this.addListener(() => outputGate.calculateOutput());
+  calculateOutput() {
+    for(const Gate of this.leftList){
+      var val =  Gate.calculateOutput();
+      console.log("connector val:",val);
+      return val;
+    }
   }
 }
 
@@ -99,9 +100,9 @@ class OutputSignal extends Signal {
 class Gate extends InteractiveSVG {
   constructor(svgURL) {
     super(svgURL);
-    this.firstInputSignal = -1;
-    this.secondInputSignal = -1;
-    this.outputSignal = null;
+    this.firstInputValue = -1;
+    this.secondInputValue = -1;
+    this.outputValue = null;
     this.leftList = new Set(); // Manages inputs for all Gate class objects
   }
   // Set inputs from the connected signals
@@ -110,13 +111,21 @@ class Gate extends InteractiveSVG {
     var second = null;
     this.leftList.forEach(function (input) {
       if(first == null) {
-        first = input
+        if(!(input instanceof InputSignal0 || input instanceof InputSignal1)) {
+          first = input.calculateOutput();
+        } else {
+          first = input.value;
+        }
       } else {
-        second = input;
+        if(!(input instanceof InputSignal0 || input instanceof InputSignal1)) {
+          second = input.calculateOutput();
+        } else {
+          second = input.value;
+        }
       }
     });
-    this.firstInputSignal=first;
-    this.secondInputSignal=second;
+    this.firstInputValue=first;
+    this.secondInputValue=second;
   }
 
   // Subclasses must override this to provide specific gate logic.
@@ -137,15 +146,15 @@ class ANDGate extends Gate {
   calculateOutput() {
     this.setInputs();
     // Ensure both input signals are present before performing logic operations
-    if (this.firstInputSignal && this.secondInputSignal) {
-      console.log(this.firstInputSignal.value, " ", this.secondInputSignal.value);
+    if (this.firstInputValue && this.secondInputValue) {
+      console.log(this.firstInputValue, " ", this.secondInputValue);
       if(this.NAND == false) {
-        this.outputSignal = this.firstInputSignal.value && this.secondInputSignal.value; // AND operation 
+        this.outputValue = this.firstInputValue && this.secondInputValue; // AND operation 
       } else {
-        this.outputSignal = !(this.firstInputSignal.value && this.secondInputSignal.value); // NAND operation
+        this.outputValue = !(this.firstInputValue && this.secondInputValue); // NAND operation
       }
     }
-    return this.outputSignal; // Returns output signal
+    return this.outputValue; // Returns output signal
   }
 }
 
@@ -161,16 +170,16 @@ class ORGate extends Gate {
   calculateOutput() {
     this.setInputs();
     // Ensure both input signals are present before performing logic operations
-    if (this.firstInputSignal && this.secondInputSignal) {
-      console.log(this.firstInputSignal.value, " ", this.secondInputSignal.value);
+    if (this.firstInputValue && this.secondInputValue) {
+      console.log(this.firstInputValue, " ", this.secondInputValue);
       if(this.NOR == false) {
-        this.outputSignal = this.firstInputSignal.value || this.secondInputSignal.value; // OR operation
+        this.outputValue = this.firstInputValue || this.secondInputValue; // OR operation
       } else {
-        this.outputSignal = !(this.firstInputSignal.value || this.secondInputSignal.value); // NOR operation
+        this.outputValue = !(this.firstInputValue || this.secondInputValue); // NOR operation
       }
     }
 
-    return this.outputSignal; // Returns output signal
+    return this.outputValue; // Returns output signal
   }
 }
 
@@ -183,13 +192,12 @@ constructor(svgContent) {
   // Calculate the logical output with single input signal
   calculateOutput() {
     this.setInputs();
-    console.log(this.firstInputSignal.value);
+    console.log(this.firstInputValue);
 
-    // Check if there is an input signal before negation
-    if (this.firstInputSignal) {
-      this.outputSignal = !this.firstInputSignal.value; // Performs NOT operation 
-    }
-    return this.outputSignal;
+    this.outputValue = !this.firstInputValue; // Performs NOT operation 
+    console.log(!this.firstInputValue);
+
+    return this.outputValue;
   }
 
 }
@@ -205,16 +213,16 @@ class XORGate extends Gate {
   calculateOutput() {
     this.setInputs();
     // Ensure both input signals are present before performing logic operations
-    if (this.firstInputSignal && this.secondInputSignal) {
-      console.log(this.firstInputSignal.value, " ", this.secondInputSignal.value);
+    if (this.firstInputValue && this.secondInputValue) {
+      console.log(this.firstInputValue, " ", this.secondInputValue);
       
       if(this.XNOR == false) {
-        this.outputSignal = this.firstInputSignal.value != this.secondInputSignal.value; // XOR operation
+        this.outputValue = this.firstInputValue != this.secondInputValue; // XOR operation
       } else {
-        this.outputSignal = !(this.firstInputSignal.value != this.secondInputSignal.value); // XNOR operation
+        this.outputValue = !(this.firstInputValue != this.secondInputValue); // XNOR operation
       }
     }
-    return this.outputSignal; // // Return the computed output signal
+    return this.outputValue; // // Return the computed output signal
   }
 }
 var main = function() {
