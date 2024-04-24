@@ -76,7 +76,7 @@ class OutputSignal extends Signal {
     var val = null;
 
     for(const Gate of this.leftList){
-      val =  Gate.calculateOutput();
+      val = Gate.calculateOutput();
     }
     
     if(val == true) {
@@ -142,14 +142,10 @@ class ANDGate extends Gate {
   // Calculate the logical output based on the gate's mode and input signals
   calculateOutput() {
     this.setInputs();
-    // Ensure both input signals are present before performing logic operations
-    if (this.firstInputValue && this.secondInputValue) {
-      //console.log(this.firstInputValue, " ", this.secondInputValue);
-      if(this.NAND == false) {
-        this.outputValue = this.firstInputValue && this.secondInputValue; // AND operation 
-      } else {
-        this.outputValue = !(this.firstInputValue && this.secondInputValue); // NAND operation
-      }
+    if(this.NAND == false) {
+      this.outputValue = this.firstInputValue && this.secondInputValue; // AND operation 
+    } else {
+      this.outputValue = !(this.firstInputValue && this.secondInputValue); // NAND operation
     }
     return this.outputValue; // Returns output signal
   }
@@ -166,16 +162,12 @@ class ORGate extends Gate {
   // Calculate the logical output based on the gate's mode and input signals
   calculateOutput() {
     this.setInputs();
-    // Ensure both input signals are present before performing logic operations
-    if (this.firstInputValue && this.secondInputValue) {
-      //console.log(this.firstInputValue, " ", this.secondInputValue);
-      if(this.NOR == false) {
-        this.outputValue = this.firstInputValue || this.secondInputValue; // OR operation
-      } else {
-        this.outputValue = !(this.firstInputValue || this.secondInputValue); // NOR operation
-      }
+    console.log(this.firstInputValue, " ", this.secondInputValue);
+    if(this.NOR == false) {
+      this.outputValue = this.firstInputValue || this.secondInputValue; // OR operation
+    } else {
+      this.outputValue = !(this.firstInputValue || this.secondInputValue); // NOR operation
     }
-
     return this.outputValue; // Returns output signal
   }
 }
@@ -205,15 +197,10 @@ class XORGate extends Gate {
   // Calculate the logical output based on the gate's mode and input signals
   calculateOutput() {
     this.setInputs();
-    // Ensure both input signals are present before performing logic operations
-    if (this.firstInputValue && this.secondInputValue) {
-      //console.log(this.firstInputValue, " ", this.secondInputValue);
-      
-      if(this.XNOR == false) {
-        this.outputValue = this.firstInputValue != this.secondInputValue; // XOR operation
-      } else {
-        this.outputValue = !(this.firstInputValue != this.secondInputValue); // XNOR operation
-      }
+    if(this.XNOR == false) {
+      this.outputValue = this.firstInputValue != this.secondInputValue; // XOR operation
+    } else {
+      this.outputValue = !(this.firstInputValue != this.secondInputValue); // XNOR operation
     }
     return this.outputValue; // // Return the computed output signal
   }
