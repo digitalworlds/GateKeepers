@@ -40,7 +40,7 @@ var callback = (menu_item)=> {
 let runMenu=menulayout.getMenuBar().append(new MenuItem('Run')).whenPressed().then(callback);
 let clearMenu=menulayout.getMenuBar().append(new MenuItem('Clear'));
 let instructionsMenu=menulayout.getMenuBar().append(new MenuItem('Instructions')).getSubMenu();
-instructionsMenu.append(new MenuItem("CircuitCanvas: How to Build Your Own Collaborative Circuit.<br>To begin, drag and drop elements into your circuit.<br>When you have finished building hit run to see it in action! "));
+instructionsMenu.append(new MenuItem("CircuitCanvas: How to Build Your Own Circuit Collaboratively.<br>Click on elements at the bottom of the screen to populate them onto your canvas.<br>Select the clear button when you want to reset your canvas.<br>When you have finished building your circuit, hit run to see it in action!"));
 var togetherJsButton=document.createElement("button");
 togetherJsButton.id='start-togetherjs';
 togetherJsButton.innerHTML="Start TogetherJS";
