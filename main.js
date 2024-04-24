@@ -25,7 +25,6 @@ var callback = (menu_item)=> {
     } else {
         throw new Error("Missing output signal");
     }
-    console.log("you clicked run");
 
     //notif card for circuit output
     var notificationArea=wind.getWindowContainer().getNotificationArea();

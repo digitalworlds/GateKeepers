@@ -35,7 +35,6 @@ class ConnectorSignal extends Signal {
   calculateOutput() {
     for(const Gate of this.leftList){
       var val =  Gate.calculateOutput();
-      console.log("connector val:",val);
       return val;
     }
   }
@@ -77,9 +76,7 @@ class OutputSignal extends Signal {
     var val = null;
 
     for(const Gate of this.leftList){
-      //console.log(typeof gate);
       val =  Gate.calculateOutput();
-      console.log("val:",val);
     }
     
     if(val == true) {
@@ -147,7 +144,7 @@ class ANDGate extends Gate {
     this.setInputs();
     // Ensure both input signals are present before performing logic operations
     if (this.firstInputValue && this.secondInputValue) {
-      console.log(this.firstInputValue, " ", this.secondInputValue);
+      //console.log(this.firstInputValue, " ", this.secondInputValue);
       if(this.NAND == false) {
         this.outputValue = this.firstInputValue && this.secondInputValue; // AND operation 
       } else {
@@ -171,7 +168,7 @@ class ORGate extends Gate {
     this.setInputs();
     // Ensure both input signals are present before performing logic operations
     if (this.firstInputValue && this.secondInputValue) {
-      console.log(this.firstInputValue, " ", this.secondInputValue);
+      //console.log(this.firstInputValue, " ", this.secondInputValue);
       if(this.NOR == false) {
         this.outputValue = this.firstInputValue || this.secondInputValue; // OR operation
       } else {
@@ -192,11 +189,7 @@ constructor(svgContent) {
   // Calculate the logical output with single input signal
   calculateOutput() {
     this.setInputs();
-    console.log(this.firstInputValue);
-
     this.outputValue = !this.firstInputValue; // Performs NOT operation 
-    console.log(!this.firstInputValue);
-
     return this.outputValue;
   }
 
@@ -214,7 +207,7 @@ class XORGate extends Gate {
     this.setInputs();
     // Ensure both input signals are present before performing logic operations
     if (this.firstInputValue && this.secondInputValue) {
-      console.log(this.firstInputValue, " ", this.secondInputValue);
+      //console.log(this.firstInputValue, " ", this.secondInputValue);
       
       if(this.XNOR == false) {
         this.outputValue = this.firstInputValue != this.secondInputValue; // XOR operation
