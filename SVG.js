@@ -1,3 +1,5 @@
+// this is the base class of SVG. most of these are standard functions for this data type
+
 var SVG=function(options){
 	
 	this.svgns="http://www.w3.org/2000/svg";

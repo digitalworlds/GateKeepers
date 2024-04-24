@@ -136,12 +136,11 @@ ImageEditor.prototype.renderShape=function(){
 	this.shape.setAttribute("height",Math.max(0,this.height));
 }
 
-
+// event listeners for click and drag of the SVG, as well as checking for collission
 ImageEditor.prototype.addEventListeners = function() {
     var editor = this;
 	
     this.g.addEventListener('mousedown', function(event) {
-		//console.log("Adding event listeners");
 		var startX = event.clientX;
 		var startY = event.clientY;
 		var origX = editor.x;
@@ -149,16 +148,9 @@ ImageEditor.prototype.addEventListeners = function() {
 	
 
         function onMouseMove(moveEvent) {
-			//console.log("Mouse move detected");
 			var deltaX = moveEvent.clientX - startX;
 			var deltaY = moveEvent.clientY - startY;
 			editor.setPosition(origX + deltaX, origY + deltaY);
-			//console.log("Moved to:", editor.x, editor.y);  // Debugging the move
-		
-			// Check for intersections with other editors after moving
-			//console.log("checking for checkTouching");
-		
-			// New function to check for touching editors
 			editor.checkTouchingEditors();
 		}
 
@@ -173,32 +165,7 @@ ImageEditor.prototype.addEventListeners = function() {
     });
 };
 
-// Function to check for touching editors
-// ImageEditor.prototype.checkTouchingEditors = function() {
-	
-//     this.root.children.forEach(otherEditor => {
-//         if (otherEditor !== this && this.intersects(otherEditor)) {
-//             if (this.x < otherEditor.x) {
-//                 console.log("Touching on the right:", otherEditor);
-// 				//if object is not type signal, then do this
-// 				//console.log(instanceof otherEditor.object);
-// 				if(otherEditor.object instanceof InputSignal0 && otherEditor.object instanceof InputSignal1) {
-// 					otherEditor.object.leftList.add(this);
-// 				}
-//             } else {
-//                 console.log("Touching on the left:", otherEditor);
-// 				if(this.object instanceof InputSignal0 && this.object instanceof InputSignal1) {
-// 					this.object.leftList.add(otherEditor);
-// 				}
-				
-// 				//console.log("Current Set:" , this.leftList.values());
-//             }
-//         }
-//     });
-// };
-
 ImageEditor.prototype.setPosition = function(newX, newY) {
-	//console.log("Setting position to:", newX, newY);  // Confirm new positions are calculated correctly
     this.x = newX;
     this.y = newY;
     this.renderShape(); // Make sure this function exists and doesn't cause errors
@@ -214,11 +181,8 @@ ImageEditor.prototype.intersects = function(otherEditor) {
 
 // In checkTouchingEditors function
 ImageEditor.prototype.checkTouchingEditors = function() {
-    console.log("Checking for touching editors...");  // Debugging the touch check
     this.root.children.forEach(otherEditor => {
-       // console.log("Checking against:", otherEditor);  // See what it's comparing against
         if (otherEditor !== this && this.intersects(otherEditor)) {
-         //  console.log("Intersects with:", otherEditor);  // Check if intersects log is shown
 			if (!(this.object instanceof InputSignal0 || this.object instanceof InputSignal1) && this.object.leftList.has(otherEditor.object)) {
 				this.object.leftList.delete(otherEditor.object);
 			} 
@@ -229,7 +193,6 @@ ImageEditor.prototype.checkTouchingEditors = function() {
 			if (this.x < otherEditor.x) {
                 console.log("Touching on the right:", otherEditor);
 				//if object is not type signal, then do this
-				//console.log(instanceof otherEditor.object);
 				if(!(otherEditor.object instanceof InputSignal0 || otherEditor.object instanceof InputSignal1)) {
 					otherEditor.object.leftList.add(this.object);
 				}
@@ -239,7 +202,6 @@ ImageEditor.prototype.checkTouchingEditors = function() {
 					this.object.leftList.add(otherEditor.object);
 				} 
 				
-				//console.log("Current Set:" , this.leftList.values());
             }
 
 			
@@ -414,8 +376,7 @@ ShapeGroupEditor.prototype.initRoot=function(){
 				var rect=this.svg.getBoundingClientRect();
 				this.pick_p.callThen({object:{x:(event.clientX-rect.left)/this.scale-this.padding,y:(event.clientY-rect.top)/this.scale-this.padding}});
 				this.pick_p.abort();
-				
-				//event.stopPropagation();
+			
 			}
 		});
 }
@@ -469,6 +430,8 @@ ShapeGroupEditor.prototype.whenSelected=function(){
 	return this.selected_p;
 }
 
+//anchors to detect movement, as well as other elements that are touching
+//this enables easy addition of event listeners
 ShapeGroupEditor.prototype.createAnchors=function(options){
 	
 	if(options.angle)this.angle=options.angle;
@@ -507,7 +470,6 @@ ShapeGroupEditor.prototype.createAnchors=function(options){
     // Modify the event listener for the upper_right anchor to include delete functionality
     this.upper_right.removeEventListener("mousedown", this.upper_right_mousedownHandler); // Assuming you've previously attached a mousedown handler
     this.upper_right.addEventListener("click", (event) => {
-        //event.stopPropagation(); // Prevent further propagation of the event
 		this.remove()
     });
 	
@@ -668,7 +630,6 @@ ShapeGroupEditor.prototype.createAnchors=function(options){
 		this.bottom.setAttribute("opacity",1);
 		this.left.setAttribute("opacity",1);
 		this.right.setAttribute("opacity",1);
-		// this.center.setAttribute("opacity",1);
 		this.rotator.setAttribute("opacity",1);
 	}
 	
@@ -679,8 +640,6 @@ ShapeGroupEditor.prototype.createAnchors=function(options){
 			if(!this.canSelect)return;
 			
 			activateEditor();
-			
-			//event.stopPropagation();
 			
 			if(!this.canMove)return;
 			var original_cx=this.cx;
@@ -734,8 +693,6 @@ ShapeGroupEditor.prototype.createAnchors=function(options){
 		})
 	this.upper_left.addEventListener("mousedown",(event)=>{
 			this.upper_left.setAttribute("fill","yellow");
-			
-			//event.stopPropagation();
 			
 			var original_width=this.width;
 			var original_height=this.height;
@@ -804,8 +761,6 @@ ShapeGroupEditor.prototype.createAnchors=function(options){
 			
 			this.upper_right.setAttribute("fill","yellow");
 			
-			//event.stopPropagation();
-			
 			var original_width=this.width;
 			var original_height=this.height;
 			var original_cx=this.cx;
@@ -871,8 +826,6 @@ ShapeGroupEditor.prototype.createAnchors=function(options){
 	this.lower_left.addEventListener("mousedown",(event)=>{
 			
 			this.lower_left.setAttribute("fill","yellow");
-			
-			//event.stopPropagation();
 			
 			var original_width=this.width;
 			var original_height=this.height;
@@ -940,8 +893,6 @@ ShapeGroupEditor.prototype.createAnchors=function(options){
 			
 			this.lower_right.setAttribute("fill","yellow");
 			
-			//event.stopPropagation();
-			
 			var original_width=this.width;
 			var original_height=this.height;
 			var original_cx=this.cx;
@@ -1008,8 +959,6 @@ ShapeGroupEditor.prototype.createAnchors=function(options){
 			
 			this.top.setAttribute("fill","yellow");
 			
-			//event.stopPropagation();
-			
 			var original_width=this.width;
 			var original_height=this.height;
 			var original_cx=this.cx;
@@ -1048,7 +997,6 @@ ShapeGroupEditor.prototype.createAnchors=function(options){
 				var c=Math.cos(this.angle*Math.PI/180);
 				var s=Math.sin(this.angle*Math.PI/180);
 				
-				//this.width=-dx*c-dy*s+original_width;
 				this.height=-dx*s+dy*c+original_height;
 				dx=(original_width-this.width)/2;
 				dy=(original_height-this.height)/2;
@@ -1080,9 +1028,6 @@ ShapeGroupEditor.prototype.createAnchors=function(options){
 	this.bottom.addEventListener("mousedown",(event)=>{
 			
 			this.bottom.setAttribute("fill","yellow");
-			
-			//event.stopPropagation();
-			
 			
 			var original_width=this.width;
 			var original_height=this.height;
@@ -1122,7 +1067,6 @@ ShapeGroupEditor.prototype.createAnchors=function(options){
 				var c=Math.cos(this.angle*Math.PI/180);
 				var s=Math.sin(this.angle*Math.PI/180);
 				
-				//this.width=-dx*c-dy*s+original_width;
 				this.height=dx*s-dy*c+original_height;
 				
 				dx=(original_width-this.width)/2;
@@ -1154,8 +1098,6 @@ ShapeGroupEditor.prototype.createAnchors=function(options){
 	this.left.addEventListener("mousedown",(event)=>{
 			
 			this.left.setAttribute("fill","yellow");
-			
-			//event.stopPropagation();
 			
 			var original_width=this.width;
 			var original_height=this.height;
@@ -1196,7 +1138,6 @@ ShapeGroupEditor.prototype.createAnchors=function(options){
 				var s=Math.sin(this.angle*Math.PI/180);
 				
 				this.width=dx*c+dy*s+original_width;
-				//this.height=-dx*s+dy*c+original_height;
 				
 				dx=-(original_width-this.width)/2;
 				dy=(original_height-this.height)/2;
@@ -1227,7 +1168,6 @@ ShapeGroupEditor.prototype.createAnchors=function(options){
 	this.right.addEventListener("mousedown",(event)=>{
 			
 			this.right.setAttribute("fill","yellow");
-			//event.stopPropagation();
 			
 			var original_width=this.width;
 			var original_height=this.height;
@@ -1269,7 +1209,6 @@ ShapeGroupEditor.prototype.createAnchors=function(options){
 				var s=Math.sin(this.angle*Math.PI/180);
 				
 				this.width=-dx*c-dy*s+original_width;
-				//this.height=-dx*s+dy*c+original_height;
 				
 				dx=(original_width-this.width)/2;
 				dy=(original_height-this.height)/2;
@@ -1301,7 +1240,6 @@ ShapeGroupEditor.prototype.createAnchors=function(options){
 	this.rotator.addEventListener("mousedown",(event)=>{
 			
 			this.rotator.setAttribute("fill","yellow");
-			//event.stopPropagation();
 			
 			var original_angle=this.angle;
 			var x1=event.clientX;

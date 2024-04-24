@@ -19,7 +19,7 @@ var output=null;
 var callback = (menu_item)=> {
     var outputValue = -1;
     if(output != null) {
-        //start out outputsignal and call calculate output recursively
+        //start outputsignal and call calculate output recursively
         outputValue = output.calculate();
         
     } else {
@@ -27,7 +27,7 @@ var callback = (menu_item)=> {
     }
     console.log("you clicked run");
 
-    //notif card
+    //notif card for circuit output
     var notificationArea=wind.getWindowContainer().getNotificationArea();
     var notificationCard=new NotificationCard({title:"Output:"});
     notificationArea.append(notificationCard);
@@ -41,6 +41,9 @@ let runMenu=menulayout.getMenuBar().append(new MenuItem('Run')).whenPressed().th
 let clearMenu=menulayout.getMenuBar().append(new MenuItem('Clear'));
 let instructionsMenu=menulayout.getMenuBar().append(new MenuItem('Instructions')).getSubMenu();
 instructionsMenu.append(new MenuItem("CircuitCanvas: How to Build Your Own Circuit Collaboratively.<br>Click on elements at the bottom of the screen to populate them onto your canvas.<br>Select the clear button when you want to reset your canvas.<br>When you have finished building your circuit, hit run to see it in action!"));
+
+
+//TogetherJS button for collaboration, must use document.createElement
 var togetherJsButton=document.createElement("button");
 togetherJsButton.id='start-togetherjs';
 togetherJsButton.innerHTML="Start TogetherJS";
@@ -84,7 +87,7 @@ TogetherJS.hub.on("togetherjs.hello", function (msg) {
     if (! msg.sameUrl) {
       return;
     }
-    MyApp.allToggleElements.forEach(function (el) {
+    app.allToggleElements.forEach(function (el) {
       var isVisible = $(el).is(":visible");
       fireTogetherJSVisibility(el, isVisible);
     });
@@ -94,8 +97,8 @@ menulayout.getContainer().div.append(togetherJsButton);
 
 wind.getContent().append(menulayout);
 
-//var vertSplitLayout=new SplitLayout({orientation:'vertical',sticky:'second',editable:false,splitPosition:'0.125'});
 
+// creating button groups for gates and signals
 var Gates=new ButtonGroup({orientation:'horizontal'});
 var Signals = new ButtonGroup({orientation:'horizontal'});
 
@@ -143,31 +146,26 @@ verticalConnect.setIcon(new GUIIcon(SVGICONS_DICT["horizontalConnectorIcon"]));
 wind.append(Gates);
 wind.append(Signals);
 
-
-//menulayout.getContainer().append(vertSplitLayout);
-//var splitLayout=new SplitLayout({orientation:'horizontal',sticky:'second',editable:true,splitPosition:'0.25'});
-//vertSplitLayout.getSecondContainer().append(splitLayout);
-
+//div or "canvas" for displaying SVGs
 var div=document.createElement("div");
 menulayout.getContainer().div.appendChild(div);
 
 var mySVG=new SVGEditor();
 mySVG.setSize(wind.getWidth(), wind.getHeight());
 
-
+// option to clear the canvas
 clearMenu.whenClicked().then(
     (button)=>{
         mySVG.removeAll();
         output = null; 
     }
 );
+
 //button on-click functionality
 andGate.whenClicked().then(
     (button) => {
          var andgate = new ANDGate("gates/noun-and-gate-5536388.svg", false);
-         //console.log(andgate.getSVGContent());
          mySVG.image({y:50,x:50,width:100,height:100,object:andgate,href:"gates/noun-and-gate-5536388.svg" ,preserveAspectRatio:"none"});
-         console.log("hello")
     }
 );
 orGate.whenClicked().then(
@@ -249,27 +247,3 @@ menulayout.getContainer().div.scrollTop=mySVG.getHeight()/2-wind.getHeight()/2;
 menulayout.getContainer().div.scrollLeft=mySVG.getWidth()/2-wind.getWidth()/2;
 
 }
-
-
-
-//end
-
-
-
-//only need to change SVGEditor, but everything can be draggable
-//start with rect only
-
-/* This is an example of the SVGEditor class
-var mySVG=new SVGEditor();
-mySVG.setSize(3000,3000);
-mySVG.rect({y:1320,x:1500,width:200,height:200,stroke:'#000000',fill:"rgba(0,0,0,0)",strokeWidth:"3"},{canResize:true})
-mySVG.rect({y:1310,x:1310,width:20,height:20,stroke:'#000000',fill:"rgba(0,0,0,0)",strokeWidth:"3"})
-mySVG.ellipse({cy:1400,cx:1310,rx:209,ry:20,stroke:'#000000',fill:"rgba(0,0,0,0)",strokeWidth:"3"})
-mySVG.text({x:1350,y:1350,text:"Hello this is my test",'font-family':'Arial','font-size':'20px',fill:'black',style:'user-select:none;'})
-mySVG .image({y:1320,x:1500,width:200,height:200,href:"https://digitalworlds.github.io/op.n/img/logo.png",preserveAspectRatio:"none"});
-
-div.appendChild(mySVG.svg);
-
-menulayout.getContainer().div.scrollTop=mySVG.getHeight()/2-wind.getHeight()/2;
-menulayout.getContainer().div.scrollLeft=mySVG.getWidth()/2-wind.getWidth()/2;
-*/
