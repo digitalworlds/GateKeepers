@@ -67,7 +67,7 @@ function fireTogetherJSVisibility(element, isVisible) {
   TogetherJS.send({type: "visibilityChange", isVisible: isVisible, element: location});
 }
 
-/*TogetherJS.hub.on("visibilityChange", function (msg) {
+TogetherJS.hub.on("visibilityChange", function (msg) {
   if (! msg.sameUrl) {
     return;
   }
@@ -80,7 +80,7 @@ function fireTogetherJSVisibility(element, isVisible) {
   } finally {
     visibilityChangeFromRemote = false;
   }
-});*/
+});
 
 TogetherJS.hub.on("togetherjs.hello", function (msg) {
     if (! msg.sameUrl) {
