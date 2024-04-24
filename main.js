@@ -164,9 +164,7 @@ clearMenu.whenClicked().then(
 andGate.whenClicked().then(
     (button) => {
          var andgate = new ANDGate("gates/noun-and-gate-5536388.svg", false);
-         //console.log(andgate.getSVGContent());
          mySVG.image({y:50,x:50,width:100,height:100,object:andgate,href:"gates/noun-and-gate-5536388.svg" ,preserveAspectRatio:"none"});
-         console.log("hello")
     }
 );
 orGate.whenClicked().then(
