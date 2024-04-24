@@ -14,9 +14,16 @@ var wind=args.app.getWindow();
 
 var menulayout=new MenuLayout();
 
+var mySVG=new SVGEditor();
+
 var output=null;
 
 var callback = (menu_item)=> {
+    
+    for(const child of mySVG.children){
+        child.checkTouchingEditors();
+    }
+
     var outputValue = -1;
     if(output != null) {
         //start outputsignal and call calculate output recursively
@@ -149,7 +156,7 @@ wind.append(Signals);
 var div=document.createElement("div");
 menulayout.getContainer().div.appendChild(div);
 
-var mySVG=new SVGEditor();
+
 mySVG.setSize(wind.getWidth(), wind.getHeight());
 
 // option to clear the canvas
